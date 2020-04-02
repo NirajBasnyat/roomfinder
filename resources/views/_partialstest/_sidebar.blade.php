@@ -2,7 +2,7 @@
 <nav id="sidebar" style="background:#343a40;">
     <div class="sidebar-header p-0 m-0">
         <a href="{{route('/')}}"><img src="{{asset('images/logo_main.png')}}" alt="Logo" height="120px"
-                width="120px" class="side_profile" /></a>
+                                      width="120px" class="side_profile"/></a>
         <div class="row pl-5">
             <h6 class="float-left m-0 text-info side_profile">Welcome <i>{{Auth::user()->name}} </i></h6>
         </div>
@@ -11,7 +11,7 @@
     <ul class="list-unstyled components">
         <li class="dr">
             <a href="#sidebar_dashboard" data-toggle="collapse" aria-expanded="false" data-parent="#sidebar"
-                class="dropdown-toggle">
+               class="dropdown-toggle">
                 <i class="fas fa-home"></i>
                 <b>Dashboard</b>
             </a>
@@ -24,24 +24,132 @@
                 </li>
             </ul>
         </li>
-        <li class="dr">
-            <a href="#sidebar_class" data-toggle="collapse" aria-expanded="false" data-parent="#sidebar"
-                class="dropdown-toggle">
-                <i class="fas fa-chalkboard"></i>
-                <b>Room</b>
-            </a>
-            <ul class="drm collapse list-unstyled m-0" id="sidebar_class">
-                <li>
-                    <a href="{{route('room.index')}}">All Rooms</a>
-                </li>
-                <li>
-                    <a href="{{route('room.create')}}">Add New Room</a>
-                </li>
-            </ul>
-        </li>
+
+        {{----------------------------------------------- start of ROOM OWNER ----------------------------------------------}}
+        @if(auth()->user()->role == 1)
+
+            <li class="dr">
+                <a href="#sidebar_accounting" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-address-book"></i>
+                    <b>Profile</b>
+                </a>
+                <ul class="drm collapse list-unstyled m-0" id="sidebar_accounting">
+                    <li>
+                        <a href="{{route('owner_profile',auth()->user()->name)}}">My Profile</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="dr">
+                <a href="#sidebar_class" data-toggle="collapse" aria-expanded="false" data-parent="#sidebar"
+                   class="dropdown-toggle">
+                    <i class="fas fa-chalkboard"></i>
+                    <b>Room</b>
+                </a>
+                <ul class="drm collapse list-unstyled m-0" id="sidebar_class">
+                    <li>
+                        <a href="{{route('room.index')}}">All Rooms</a>
+                    </li>
+                    <li>
+                        <a href="{{route('room.create')}}">Add New Room</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="dr">
+                <a href="#sidebar_notices" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-sticky-note"></i>
+                    <b>Notices</b>
+                </a>
+                <ul class="drm collapse list-unstyled m-0" id="sidebar_notices">
+                    <li>
+                        <a href="#">All Notices</a>
+                    </li>
+                    <li>
+                        <a href="#">Add Notices</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="dr">
+                <a href="#sidebar_feedback" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-comments"></i>
+                    <b>Testimonials</b>
+                </a>
+                <ul class="drm collapse list-unstyled m-0" id="sidebar_feedback">
+                    <li>
+                        <a href="#">All Feedback</a>
+                    </li>
+                    <li>
+                        <a href="#">Add Feedback</a>
+                    </li>
+                </ul>
+            </li>
+
+        @endif
+        {{----------------------------------------------- end of ROOM OWNER ----------------------------------------------}}
+
+        {{----------------------------------------------- start of ROOM SEEKER ----------------------------------------------}}
+
+        @if(auth()->user()->role == 2)
+
+            <li class="dr">
+                <a href="#sidebar_accounting" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-address-book"></i>
+                    <b>Profile</b>
+                </a>
+                <ul class="drm collapse list-unstyled m-0" id="sidebar_accounting">
+                    <li>
+                        <a href="{{route('seeker_profile',auth()->user()->name)}}">My Profile</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="dr">
+                <a href="#sidebar_library" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-book-reader"></i>
+                    <b>All Rooms</b>
+                </a>
+                <ul class="drm collapse list-unstyled m-0" id="sidebar_library">
+                    <li>
+                        <a href="{{route('seeker_room')}}">All Rooms</a>
+                    </li>
+                    <li>
+                        <a href="{{route('my_rooms')}}">My Rooms*</a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('my_bookmarks')}}">Bookmarks</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="dr">
+                <a href="#sidebar_feedback" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-comments"></i>
+                    <b>Testimonials</b>
+                </a>
+                <ul class="drm collapse list-unstyled m-0" id="sidebar_feedback">
+                    <li>
+                        <a href="#">All Feedback</a>
+                    </li>
+                    <li>
+                        <a href="#">Add Feedback</a>
+                    </li>
+                </ul>
+            </li>
+
+
+        @endif
+
+        {{----------------------------------------------- end of ROOM SEEKER ----------------------------------------------}}
+
+        {{----------------------------------------------- start of ADMIN --------------------------------------------------}}
+
+        @if(auth()->user()->admin)
         <li class="dr">
             <a href="#sidebar_exam" data-toggle="collapse" aria-expanded="false" data-parent="#sidebar"
-                class="dropdown-toggle">
+               class="dropdown-toggle">
                 <i class="fas fa-marker"></i>
                 <b>Room Category</b>
             </a>
@@ -62,6 +170,14 @@
                 </li>
             </ul>
         </li>
+
+        @endif
+        {{----------------------------------------------- end of ADMIN --------------------------------------------------}}
+
+
+
+        @if(auth()->user()->role == 100)
+
         <li class="dr">
             <a href="#sidebar_fee" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-file-invoice-dollar"></i>
@@ -76,20 +192,7 @@
                 </li>
             </ul>
         </li>
-        <li class="dr">
-            <a href="#sidebar_accounting" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fas fa-address-book"></i>
-                <b>Accounting</b>
-            </a>
-            <ul class="drm collapse list-unstyled m-0" id="sidebar_accounting">
-                <li>
-                    <a href="#">Students Accounting</a>
-                </li>
-                <li>
-                    <a href="#">Employee Accounting</a>
-                </li>
-            </ul>
-        </li>
+
         <li class="dr">
             <a href="#sidebar_inventory" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-dolly"></i>
@@ -118,34 +221,8 @@
                 </li>
             </ul>
         </li>
-        <li class="dr">
-            <a href="#sidebar_notices" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fas fa-sticky-note"></i>
-                <b>Notices</b>
-            </a>
-            <ul class="drm collapse list-unstyled m-0" id="sidebar_notices">
-                <li>
-                    <a href="#">All Notices</a>
-                </li>
-                <li>
-                    <a href="#">Add Notices</a>
-                </li>
-            </ul>
-        </li>
-        <li class="dr">
-            <a href="#sidebar_library" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fas fa-book-reader"></i>
-                <b>Library</b>
-            </a>
-            <ul class="drm collapse list-unstyled m-0" id="sidebar_library">
-                <li>
-                    <a href="#">All Library</a>
-                </li>
-                <li>
-                    <a href="#">Add Library</a>
-                </li>
-            </ul>
-        </li>
+
+
         <li class="dr">
             <a href="#sidebar_setting" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-cogs"></i>
@@ -177,20 +254,7 @@
                 </li>
             </ul>
         </li>
-        <li class="dr">
-            <a href="#sidebar_feedback" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fas fa-comments"></i>
-                <b>Feedback</b>
-            </a>
-            <ul class="drm collapse list-unstyled m-0" id="sidebar_feedback">
-                <li>
-                    <a href="#">All Feedback</a>
-                </li>
-                <li>
-                    <a href="#">Add Feedback</a>
-                </li>
-            </ul>
-        </li>
+
         <li class="dr">
             <a href="/index.html">
                 <i class="fas fa-briefcase"></i>
@@ -210,6 +274,8 @@
             </a>
         </li>
     </ul>
+
+    @endif
 
     <div class="sidebar-footer">
         <ul class="p-0 m-0">

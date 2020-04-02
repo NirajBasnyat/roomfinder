@@ -9,7 +9,8 @@ class Room extends Model
 {
     protected $guarded = [];
 
-    public function upload_groups(){
+    public function upload_groups()
+    {
         return $this->hasMany(UploadGroups::class, 'group_id', 'images');
     }
 
@@ -20,7 +21,7 @@ class Room extends Model
 
     public function owner()
     {
-        return $this->belongsTo(Owner::class,'user_id','user_id');
+        return $this->belongsTo(Owner::class, 'user_id', 'user_id');
     }
 
     public function city()
@@ -48,6 +49,29 @@ class Room extends Model
         return $this->belongsToMany(Applicant::class);
     }
 
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
+    public function is_bookmarked()
+    {
+        $auth_user = auth()->id();
+
+        $all_bookmarks = array();
+
+        foreach ($this->bookmarks as $bookmark):
+            array_push($all_bookmarks, $bookmark->user_id);
+        endforeach;
+
+        if (in_array($auth_user, $all_bookmarks)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     //accessors ->manipulates the incoming data from DB before showing it to view
 
     public function getTitleAttribute()
@@ -57,12 +81,12 @@ class Room extends Model
 
     public function getTitleLimitAttribute()
     {
-        return Str::limit($this->title,20);
+        return Str::limit($this->title, 20);
     }
 
     public function getCreatedAtAttribute($value)
     {
-       // return \Carbon\Carbon::parse($value)->toFormattedDateString();
+        // return \Carbon\Carbon::parse($value)->toFormattedDateString();
         return \Carbon\Carbon::parse($value)->diffForHumans();
     }
 

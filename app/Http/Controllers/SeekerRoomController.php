@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\User;
 use App\City;
 use App\Place;
 use App\Room;
+use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class SeekerRoomController extends Controller
@@ -15,7 +17,6 @@ class SeekerRoomController extends Controller
     {
         $cities = City::all(['name', 'id']);
         $places = Place::all(['name', 'id']);
-        $categories = Category::all();
         $categories = Category::all();
         $rooms = Room::with('city')->with('place')->with('category')
             ->select(['id', 'title', 'price', 'city_id', 'place_id', 'category_id', 'created_at'])
@@ -76,5 +77,18 @@ class SeekerRoomController extends Controller
         $categories = Category::all();
         $rooms = Room::with('city')->with('place')->with('category')->select(['id', 'title', 'price', 'city_id', 'place_id', 'category_id', 'created_at'])->paginate(10);
         return view('room_seeker.index', compact('rooms', 'categories'));
+    }
+
+    public function seekerRoom()
+    {
+        $id = auth()->id();
+        $rooms = DB::table('applicants')
+            ->join('rooms', 'applicants.room_id', '=', 'rooms.id')
+            ->when($id, function ($query) use ($id) {
+                return $query->where('applicants.user_id', $id);
+            })->select(['rooms.id', 'applicants.id', 'rooms.title', 'applicants.status', 'rooms.created_at'])
+            ->paginate(5);
+        return view('room_seeker.my_rooms', compact('rooms'));
+
     }
 }

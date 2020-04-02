@@ -6,6 +6,7 @@ use Session;
 use App\Room;
 use App\Applicant;
 use Illuminate\Http\Request;
+use App\Http\Helper\AppHelper;
 use Illuminate\Support\Facades\Auth;
 
 class ApplicantController extends Controller

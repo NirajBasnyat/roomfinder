@@ -11,7 +11,8 @@
                                     class="fas fa-home mr-2"></i>Home</a></li>
                         <li class="breadcrumb-item green"><a href="{{route('room.index')}}" class="green">All Room</a>
                         </li>
-                        <li class="breadcrumb-item active gray" aria-current="page">About Room</li>
+                        <li class="breadcrumb-item active gray" aria-current="page">About Room
+                        </li>
                     </ol>
                 </nav>
             </div>
@@ -25,7 +26,21 @@
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="card">
-                                    <div class="card-header">About Property</div>
+                                    <div class="card-header">
+                                        About Property
+                                        @if(auth()->user()->role == 2)
+                                            @if($room->is_bookmarked())
+                                                <a href="{{route('remove_bookmark',$room->id)}}"
+                                                   class="btn btn-sm btn-dark float-right"> <i
+                                                        class="fas fa-bookmark"></i> Added to Bookmarks</a>
+                                            @else
+                                                <a href="{{route('add_bookmark',$room->id)}}"
+                                                   class="btn btn-sm btn-outline-dark float-right"><i
+                                                        class="far fa-bookmark"></i> Add to Bookmarks</a>
+                                            @endif
+                                        @endif
+
+                                    </div>
 
                                     @include('room.room_info')
 

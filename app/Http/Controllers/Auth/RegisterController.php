@@ -39,7 +39,7 @@ class RegisterController extends Controller
         } elseif (Auth::user()->role == 2) {
             return ('seeker/profile/' . Auth::user()->name);
         } else {
-            return ('/home');
+            return ('/register');
         }
     }
 

@@ -33,9 +33,9 @@ class LoginController extends Controller
     {
         if (Auth::user()->admin) {
             return ('/home');
-        } elseif (Auth::user()->role === 1) {
+        } elseif (Auth::user()->role == 1) {
             return ('owner/profile/' . Auth::user()->name);
-        } elseif (Auth::user()->role === 2) {
+        } elseif (Auth::user()->role == 2) {
             return ('seeker/profile/' . Auth::user()->name);
         } else {
             return ('/login');

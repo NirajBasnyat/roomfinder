@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Session;
 use App\Room;
 use App\City;
@@ -30,6 +29,10 @@ class RoomController extends Controller
 
     public function create()
     {
+        //to make sure that the room owner has to profile (so errors donot occur in view)
+        if(AppHelper::hasProfile('owner') != null){
+            return AppHelper::hasProfile('owner')->with('info','Create Profile first');
+        }
         $cities = City::all(['name', 'id']);
         $places = Place::all(['name', 'id']);
         $categories = Category::all();
@@ -58,6 +61,11 @@ class RoomController extends Controller
 
     public function show(Room $room)
     {
+        //to make sure that the room seeker has a profile (so errors donot occur in view)
+        if(AppHelper::hasProfile('seeker') != null && \auth()->user()->role  == 2){
+            return AppHelper::hasProfile('seeker')->with('info','Create Profile first');
+        }
+
         $user_id = Auth::id();
         $room_id = $room->id;
         $room = $room->load('facilities')->load('city'); //lazy loading
