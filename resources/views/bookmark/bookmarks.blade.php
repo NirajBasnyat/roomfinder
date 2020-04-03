@@ -9,7 +9,9 @@
                     <ol class="breadcrumb m-0 nodecorationlist">
                         <li class="breadcrumb-item green"><a href="{{route('home')}}" class="green"><i
                                     class="fas fa-home mr-2"></i>Home</a></li>
-                        <li class="breadcrumb-item active gray" aria-current="page">Search Room</li>
+                        <li class="breadcrumb-item green"><a href="{{route('seeker_room')}}" class="green">All Room</a>
+                        </li>
+                        <li class="breadcrumb-item active gray" aria-current="page">Bookmarks</li>
                     </ol>
                 </nav>
             </div>
@@ -40,7 +42,7 @@
                                             <td>{{$room->title}}</td>
                                             <td>{{$room->created_at}}</td>
                                             <td class="d-inline-flex">
-                                                <a href="{{route('room.show',$room->id)}}" class="pt-1 pl-1"><i
+                                                <a href="{{route('room.show',$room->room_id)}}" class="pt-1 pl-1"><i
                                                         class="far fa-eye"></i></a>
                                             </td>
                                         </tr>

@@ -79,12 +79,14 @@ class Room extends Model
 
     public function getTitleAttribute()
     {
-        return $this->attributes['title'];
+        return Str::limit($this->attributes['title'], 20);
+
     }
 
     public function getTitleLimitAttribute()
     {
-        return Str::limit($this->title, 20);
+        return $this->attributes['title'];
+        //return Str::limit($this->title, 20);
     }
 
     public function getCreatedAtAttribute($value)

@@ -20,10 +20,9 @@
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">Dashboard</div>
+                        <div class="card-header">All Users</div>
 
                         <div class="card-body">
-
 
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -80,41 +79,40 @@
                                 <div class="tab-pane fade" id="nav_seeker" role="tabpanel"
                                      aria-labelledby="nav-contact-tab">
 
-                                    <div class="card">
-                                        <table class="table table-striped table-hover table-responsive-sm table-sm">
-                                            <thead class="bg-green">
+
+                                    <table class="table table-striped table-hover table-responsive-sm table-sm">
+                                        <thead class="bg-green">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Member Since</th>
+                                            <th>Permission</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        @foreach($seekers as $seeker)
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Member Since</th>
-                                                <th>Permission</th>
+                                                <td>{{$seeker->name}}</td>
+                                                <td> {{ $seeker->email }} </td>
+                                                <td> {{ $seeker->created_at->format('M j, Y') }} </td>
+
+                                                <td>
+                                                    @if($seeker->role == 4)
+                                                        <a href="{{route('admin.unban_seeker',$seeker->id)}}"
+                                                           class="btn btn-block btn-sm btn-outline-success">UnBan</a>
+
+                                                    @elseif($seeker->role == 2)
+                                                        <a href="{{route('admin.ban_seeker',$seeker->id)}}"
+                                                           class="btn btn-block btn-sm btn-outline-danger">Ban</a>
+                                                    @endif
+
+                                                </td>
                                             </tr>
-                                            </thead>
 
-                                            <tbody>
-                                            @foreach($seekers as $seeker)
-                                                <tr>
-                                                    <td>{{$seeker->name}}</td>
-                                                    <td> {{ $seeker->email }} </td>
-                                                    <td> {{ $seeker->created_at->format('M j, Y') }} </td>
-
-                                                    <td>
-                                                        @if($seeker->role == 4)
-                                                            <a href="{{route('admin.unban_seeker',$seeker->id)}}"
-                                                               class="btn btn-block btn-sm btn-outline-success">UnBan</a>
-
-                                                        @elseif($seeker->role == 2)
-                                                            <a href="{{route('admin.ban_seeker',$seeker->id)}}"
-                                                               class="btn btn-block btn-sm btn-outline-danger">Ban</a>
-                                                        @endif
-
-                                                    </td>
-                                                </tr>
-
-                                            @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
 
                                 </div>
 

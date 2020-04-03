@@ -118,9 +118,10 @@
                                                                                 <span
                                                                                     class="input-group-text">Phone</span>
                                                                             </div>
-                                                                            <input type="number" id="phone"
+                                                                            <input type="text" id="phone"
                                                                                    class="form-control"
                                                                                    name="phone"
+                                                                                   placeholder="7 or 10 digits"
                                                                                    value="{{$seeker !== null ? $seeker->phone : old('phone')}}"
                                                                                    pattern="^\d{7,10}$">
                                                                         </div>
@@ -132,9 +133,10 @@
                                                                                 <span
                                                                                     class="input-group-text">Alternate No</span>
                                                                             </div>
-                                                                            <input type="number" id="alternate"
+                                                                            <input type="text" id="alternate"
                                                                                    class="form-control"
                                                                                    name="alternate_phone"
+                                                                                   placeholder="7 or 10 digits"
                                                                                    value="{{$seeker !== null ? $seeker->alternate_phone : old('alternate_phone')}}"
                                                                                    pattern="^\d{7,10}$">
                                                                         </div>

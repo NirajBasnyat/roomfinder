@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Session;
 use App\Room;
 use App\Applicant;
 use Illuminate\Http\Request;
@@ -30,8 +29,7 @@ class ApplicantController extends Controller
         ]);
 
         $applicant->rooms()->attach($room_id);
-        Session::flash('success', 'Application sent successfully');
-        return redirect()->route('seeker_room');
+        return redirect()->route('seeker_room')->with('success', 'Application sent successfully');
     }
 
     public function viewApplicants($user_id, $room_id)
@@ -43,7 +41,7 @@ class ApplicantController extends Controller
             return $applicant->status == 'hired';
         });
 
-        //dd($hired);
+        //to check if a person is hired or not and not display other buttons if hired
         if ($applicant_count == 0 || $hired->isEmpty()) {
             $hired_status = 0;
         } else {
@@ -58,8 +56,7 @@ class ApplicantController extends Controller
         $applicant = Applicant::where('user_id', $user_id)->where('room_id', $room_id)->first();
         $applicant->status = 'hired';
         $applicant->save();
-        Session::flash('success', 'Applicant room request is accepted');
-        return redirect()->route('seeker_room');
+        return redirect()->route('seeker_room')->with('success', 'Applicant room request is accepted');
     }
 
     public function reject($user_id, $room_id)
@@ -67,8 +64,7 @@ class ApplicantController extends Controller
         $applicant = Applicant::where('user_id', $user_id)->where('room_id', $room_id)->first();
         $applicant->status = 'rejected';
         $applicant->save();
-        Session::flash('success', 'Applicant room request is rejected');
-        return redirect()->route('seeker_room');
+        return redirect()->route('seeker_room')->with('success', 'Applicant room request is rejected');
 
     }
 }

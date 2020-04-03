@@ -88,7 +88,7 @@
                                     <tbody>
                                     @foreach ($rooms as $room)
                                         <tr>
-                                            <td>{{$room->titlelimit}}</td>
+                                            <td>{{$room->title}}</td>
                                             <td>{{$room->city->name}}</td>
                                             <td>{{$room->place->name}}</td>
                                             <td>{{$room->created_at}}</td>

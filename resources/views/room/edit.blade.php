@@ -38,7 +38,7 @@
                                                     <label for="title" class="gray">Title</label>
                                                     <input type="text" class="form-control" id="title" required
                                                            placeholder="Great Room Available here"
-                                                           name="title" value="{{$room->title}}">
+                                                           name="title" value="{{$room->titlelimit}}">
                                                 </div>
                                             </div>
 

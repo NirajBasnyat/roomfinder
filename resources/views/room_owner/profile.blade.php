@@ -111,8 +111,9 @@
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text">Phone</span>
                                                                     </div>
-                                                                    <input type="number" id="phone" class="form-control"
+                                                                    <input type="text" id="phone" class="form-control"
                                                                            name="phone"
+                                                                           placeholder="7 or 10 digits"
                                                                            value="{{$owner !== null ? $owner->phone : old('phone')}}"
                                                                            pattern="^\d{7,10}$">
                                                                 </div>

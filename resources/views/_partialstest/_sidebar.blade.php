@@ -286,9 +286,11 @@
                     <b>Contact</b>
                 </a>
             </li>
+            @endif
     </ul>
 
-    @endif
+
+
 
     <div class="sidebar-footer">
         <ul class="p-0 m-0">
