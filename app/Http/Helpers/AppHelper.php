@@ -10,6 +10,8 @@ class AppHelper
     const DataUpdated = 'has been updated Successfully';
     const DataDeleted = 'has been deleted Successfully';
     const UserProfile = 'You need to create profile first';
+    const UserBanned = 'has been banned Successfully';
+    const UserUnbanned = 'has been unbanned Successfully';
 
     //User role id
     const OwnerRoleId = 1;

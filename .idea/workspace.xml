@@ -2,22 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9528cdb8-efe6-4c1f-a930-ac814198c641" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/bookmark/bookmarks.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/room_seeker/my_rooms.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Digital_Library.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Digital_Library.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/all_users.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ApplicantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ApplicantController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RoomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RoomController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SeekerRoomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SeekerRoomController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Helpers/AppHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Helpers/AppHelper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Room.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Room.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_25_052221_create_rooms_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_25_052221_create_rooms_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/_partialstest/_sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/_partialstest/_sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/room/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/room/show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,6 +51,7 @@
     <setting file="file://$PROJECT_DIR$/app/Http/Controllers/OwnerController.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/public/css/main.css" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/database/migrations/2020_04_01_053639_create_comments_table.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/resources/views/admin/all_users.blade.php" root0="SKIP_INSPECTION" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/app/Http/Controllers/CommentController.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/resources/views/room/index.blade.php" root0="SKIP_INSPECTION" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/app/Http/Controllers/EducationController.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
@@ -66,6 +60,7 @@
     <setting file="file://$PROJECT_DIR$/database/factories/RoomFactory.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/resources/views/category/index.blade.php" root0="SKIP_INSPECTION" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/resources/views/comment/reply_list.blade.php" root0="SKIP_INSPECTION" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/app/Http/Controllers/AdminController.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/resources/views/comment/comment_list.blade.php" root0="SKIP_INSPECTION" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/app/Http/Controllers/FacilityController.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/database/seeds/FacilitySeeder.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
@@ -242,7 +237,8 @@
       <workItem from="1585725107181" duration="17275000" />
       <workItem from="1585747498821" duration="2768000" />
       <workItem from="1585802403483" duration="8427000" />
-      <workItem from="1585829877838" duration="4544000" />
+      <workItem from="1585829877838" duration="4740000" />
+      <workItem from="1585883663400" duration="6125000" />
     </task>
     <servers />
   </component>
@@ -274,10 +270,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="498" height="445" key="SwitcherDM/0.0.1366.738@0.0.1366.738" timestamp="1585837330642" />
-    <state x="318" y="194" key="com.intellij.ide.util.TipDialog" timestamp="1585829874939">
+    <state x="318" y="194" key="com.intellij.ide.util.TipDialog" timestamp="1585883668176">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="318" y="194" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585829874939" />
+    <state x="318" y="194" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585883668176" />
     <state x="301" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1585831430375">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -290,9 +286,9 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1581234386332" />
-    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup" timestamp="1585837363607">
+    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup" timestamp="1585894177134">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1585837363607" />
+    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1585894177134" />
   </component>
 </project>

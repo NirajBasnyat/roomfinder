@@ -130,8 +130,9 @@ class RoomController extends Controller
     public function destroy(Room $room)
     {
         $this->deleteUploads($room);
-        $room->delete();
-        Session::flash('error', 'Room ' . AppHelper::DataDeleted);
+       // $room->delete();
+        $room->forceDelete();
+        return redirect()->back()->with('error', 'Room ' . AppHelper::DataDeleted);
     }
 
     public function validateRequest()
