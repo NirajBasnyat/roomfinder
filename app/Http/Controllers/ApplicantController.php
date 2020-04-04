@@ -6,6 +6,7 @@ use App\Room;
 use App\Applicant;
 use Illuminate\Http\Request;
 use App\Http\Helper\AppHelper;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class ApplicantController extends Controller
@@ -56,7 +57,19 @@ class ApplicantController extends Controller
         $applicant = Applicant::where('user_id', $user_id)->where('room_id', $room_id)->first();
         $applicant->status = 'hired';
         $applicant->save();
+
+        //get applicants who are not hired
+        $unhired_applicants = Room::find($room_id)->applicants()->whereNotIn('status', ['hired'])->pluck('user_id')->toArray();
+
+        //change the status of unhired candidates from pending to rejected
+        DB::table('applicants')
+            ->where('room_id',$room_id)
+            ->whereIn('user_id', $unhired_applicants)
+            ->update(['status' => 'rejected']);
+
+
         return redirect()->route('seeker_room')->with('success', 'Applicant room request is accepted');
+
     }
 
     public function reject($user_id, $room_id)

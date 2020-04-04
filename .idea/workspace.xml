@@ -4,15 +4,6 @@
     <list default="true" id="9528cdb8-efe6-4c1f-a930-ac814198c641" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ApplicantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ApplicantController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Room.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Room.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/_partialstest/_sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/_partialstest/_sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/all_users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/all_users.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/bookmark/bookmarks.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/bookmark/bookmarks.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/room/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/room/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/room_owner/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/room_owner/profile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/room_seeker/all_room.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/room_seeker/all_room.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/room_seeker/my_rooms.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/room_seeker/my_rooms.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/room_seeker/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/room_seeker/profile.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,7 +231,9 @@
       <workItem from="1585802403483" duration="8427000" />
       <workItem from="1585829877838" duration="4740000" />
       <workItem from="1585883663400" duration="7006000" />
-      <workItem from="1585906165523" duration="5378000" />
+      <workItem from="1585906165523" duration="5437000" />
+      <workItem from="1585976452830" duration="359000" />
+      <workItem from="1585977413814" duration="4397000" />
     </task>
     <servers />
   </component>
@@ -272,10 +265,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="498" height="445" key="SwitcherDM/0.0.1366.738@0.0.1366.738" timestamp="1585909144717" />
-    <state x="318" y="194" key="com.intellij.ide.util.TipDialog" timestamp="1585906166693">
+    <state x="318" y="194" key="com.intellij.ide.util.TipDialog" timestamp="1585977414448">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="318" y="194" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585906166693" />
+    <state x="318" y="194" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585977414448" />
     <state x="301" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1585831430375">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -288,9 +281,9 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1581234386332" />
-    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup" timestamp="1585911675393">
+    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup" timestamp="1585977756969">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1585911675393" />
+    <state x="346" y="59" width="672" height="678" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1585977756969" />
   </component>
 </project>
