@@ -14,9 +14,21 @@ Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
 
-    //-------------------------------------------------------------------------------------((Default Routes))
-
+    //----------------------------------------------------------------------------------------------------
+    // ((Default Routes))
+    //-----------------------------------------------------------------------------------------------------
     Route::get('/home', 'HomeController@index')->name('home');
+
+    #-------------------------------------------------------------------------------------((Room Comments))
+    Route::post('comment/create/{room}', 'CommentController@addRoomComment')->name('room.comment');
+    Route::post('comment/update/{comment}', 'CommentController@updateRoomComment')->name('room.comment_update');
+    Route::delete('comment/delete/{comment}', 'CommentController@deleteRoomComment')->name('room.comment_delete');
+    Route::post('reply/create/{comment}', 'CommentController@addReplyComment')->name('room.reply');
+
+    #----------------------------------------------------------------------------------------------((Notice))
+    Route::get('notices/see/{id}','NoticeController@show')->name('notice.show');
+    Route::resource('notice', 'NoticeController')->except(['show']);
+
 
     //----------------------------------------------------------------------------------------------------
     // ((Room Seeker))
@@ -36,7 +48,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     #-----------------------------------------------------------------------------------((Seeker's Room functions))
     Route::post('seeker_room_ajax', 'SeekerRoomController@allRoomAjax')->name('ajax.all_room');
     Route::get('seeker_room/search', 'SeekerRoomController@allRoomSearch');
-    Route::get('seeker/my_rooms','SeekerRoomController@seekerRoom')->name('my_rooms');
+    Route::get('seeker/my_rooms', 'SeekerRoomController@seekerRoom')->name('my_rooms');
     Route::get('seeker_room', 'SeekerRoomController@index')->name('seeker_room');
 
     #-----------------------------------------------------------------------------------((Room Bookmarks)
@@ -64,12 +76,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     #-------------------------------------------------------------------------------------((Room Main))
     Route::resource('room', 'RoomController');
 
-    #-------------------------------------------------------------------------------------((Room Comments))
-    Route::post('comment/create/{room}', 'CommentController@addRoomComment')->name('room.comment');
-    Route::post('comment/update/{comment}', 'CommentController@updateRoomComment')->name('room.comment_update');
-    Route::delete('comment/delete/{comment}', 'CommentController@deleteRoomComment')->name('room.comment_delete');
-    Route::post('reply/create/{comment}', 'CommentController@addReplyComment')->name('room.reply');
-
     //----------------------------------------------------------------------------------------------------
     // ((Site Admin))
     //----------------------------------------------------------------------------------------------------
@@ -88,6 +94,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('room_category', 'CategoryController')->except(['show', 'edit', 'create']);
 
     #-------------------------------------------------------------------------------------((Room Facilities))
+
     Route::resource('room_facility', 'FacilityController')->except(['show', 'edit', 'create']);
 
 });

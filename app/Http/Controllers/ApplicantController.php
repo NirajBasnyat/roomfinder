@@ -67,9 +67,7 @@ class ApplicantController extends Controller
             ->whereIn('user_id', $unhired_applicants)
             ->update(['status' => 'rejected']);
 
-
         return redirect()->route('seeker_room')->with('success', 'Applicant room request is accepted');
-
     }
 
     public function reject($user_id, $room_id)
@@ -78,6 +76,5 @@ class ApplicantController extends Controller
         $applicant->status = 'rejected';
         $applicant->save();
         return redirect()->route('seeker_room')->with('success', 'Applicant room request is rejected');
-
     }
 }

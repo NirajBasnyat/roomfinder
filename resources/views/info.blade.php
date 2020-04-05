@@ -10,6 +10,7 @@ maps and application section
 applicant and room will have many to many relationship
 
 user online and offline ->code inspire video
+use detach in Many to many rel
 
 
 

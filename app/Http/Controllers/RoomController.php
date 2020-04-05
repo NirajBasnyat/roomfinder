@@ -91,12 +91,7 @@ class RoomController extends Controller
         return view('room.show', compact('room','is_applied','seeker'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Room $room
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Room $room)
     {
         $cities = City::all(['name', 'id']);

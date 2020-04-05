@@ -63,10 +63,10 @@
                 </a>
                 <ul class="drm collapse list-unstyled m-0" id="sidebar_notices">
                     <li>
-                        <a href="#">All Notices</a>
+                        <a href="{{route('notice.index')}}">All Notices</a>
                     </li>
                     <li>
-                        <a href="#">Add Notices</a>
+                        <a href="{{route('notice.create')}}">Add Notices</a>
                     </li>
                 </ul>
             </li>
@@ -140,6 +140,8 @@
             </li>
 
 
+
+
         @endif
 
         {{----------------------------------------------- end of ROOM SEEKER ----------------------------------------------}}
@@ -180,6 +182,21 @@
                 <ul class="drm collapse list-unstyled m-0" id="sidebar_routine">
                     <li>
                         <a href="{{route('room_facility.index')}}">All Room Facilities</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="dr">
+                <a href="#sidebar_notices" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-sticky-note"></i>
+                    <b>Notices</b>
+                </a>
+                <ul class="drm collapse list-unstyled m-0" id="sidebar_notices">
+                    <li>
+                        <a href="{{route('notice.index')}}">All Notices</a>
+                    </li>
+                    <li>
+                        <a href="{{route('notice.create')}}">Add Notices</a>
                     </li>
                 </ul>
             </li>
