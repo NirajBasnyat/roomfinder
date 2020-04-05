@@ -30,10 +30,12 @@
                                         <a href="{{route('notice.show',['id' => $notification->data['notice']['id'] ])}}"
                                            class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="row">
-
                                                 <div class="col-10 col-sm-10 col-md-10 col-lg-10 pr-2 pr-1 ">
                                                     <div class="row ">
                                                         <div class="col-sm-12">
+                                                              <span class="name">
+                                                                   Dear {{auth()->user()->name}}
+                                                              </span>
                                                             <small
                                                                 class="text-muted time pull-right pr-2">{{date('dS F Y', strtotime($notification->data['notice']['created_at']))}}</small><br>
                                                         </div>
@@ -49,6 +51,37 @@
                                                 </div>
                                             </div>
                                         </a>
+
+
+                                    @elseif(!empty($notification->data['room']))
+
+                                        <a href="{{route('room.show',['id' => $notification->data['room']['id'] ])}}"
+                                           class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="row">
+                                                <div class="col-10 col-sm-10 col-md-10 col-lg-10 pr-2 pr-1 ">
+                                                    <div class="row ">
+                                                        <div class="col-sm-12">
+                                                <span class="name">
+                                                   Dear {{auth()->user()->name}}
+                                                </span>
+                                                            <small
+                                                                class="text-muted time pull-right pr-2">{{date('dS F Y', strtotime($notification->created_at))}}</small><br>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-12 pr-1">
+                                                            <div class="message">
+                                                                The decision about the room that you have applied to has
+                                                                been taken
+                                                            </div>
+                                                            <small
+                                                                class="text-muted"><b>Room
+                                                                    Title:</b> {!! $notification->data['room']['title'] !!}
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+
 
                                     @endif
 

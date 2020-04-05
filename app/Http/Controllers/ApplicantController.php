@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
+use App\User;
 use App\Room;
 use App\Applicant;
 use Illuminate\Http\Request;
 use App\Http\Helper\AppHelper;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+use App\Notifications\ApplicantNotification;
+
 
 class ApplicantController extends Controller
 {
@@ -24,7 +27,7 @@ class ApplicantController extends Controller
         ]);
 
         $applicant = Applicant::create([
-            'user_id' => Auth::id(),
+            'user_id' => \auth()->id(),
             'message' => $request->message,
             'room_id' => $room_id
         ]);
@@ -54,18 +57,45 @@ class ApplicantController extends Controller
 
     public function hire($user_id, $room_id)
     {
-        $applicant = Applicant::where('user_id', $user_id)->where('room_id', $room_id)->first();
-        $applicant->status = 'hired';
-        $applicant->save();
+        DB::beginTransaction();
+        try {
+            $applicant = Applicant::where('user_id', $user_id)->where('room_id', $room_id)->first();
+            $applicant->status = 'hired';
+            $applicant->save();
 
-        //get applicants who are not hired
-        $unhired_applicants = Room::find($room_id)->applicants()->whereNotIn('status', ['hired'])->pluck('user_id')->toArray();
+            //get applicants who are not hired
+            $unhired_applicants = Room::find($room_id)->applicants()->whereNotIn('status', ['hired'])->pluck('user_id')->toArray();
 
-        //change the status of unhired candidates from pending to rejected
-        DB::table('applicants')
-            ->where('room_id',$room_id)
-            ->whereIn('user_id', $unhired_applicants)
-            ->update(['status' => 'rejected']);
+            //change the status of unhired candidates from pending to rejected
+            DB::table('applicants')
+                ->where('room_id', $room_id)
+                ->whereIn('user_id', $unhired_applicants)
+                ->update(['status' => 'rejected']);
+
+            //sending notification
+
+            $users_array = [];
+            array_push($users_array, $user_id);
+
+            #all_users_array gives hired+rejected users (so we can send notification to all users)
+            $all_users_array = array_merge($users_array, $unhired_applicants);
+
+            $users = User::whereIn('id', $all_users_array)->get();
+           // $applicant_all = Applicant::where('room_id', $room_id)->whereIn('user_id', $all_users_array)->get();
+
+            $room = Room::where('id', $room_id)->select(['id', 'title','user_id', 'created_at'])->first();
+
+            if (\Notification::send($users, new ApplicantNotification($room))) {
+                return back();
+            }
+
+            DB::commit();
+
+        } catch (\Exception $ex) {
+            DB::rollback();
+            dd($ex->getMessage());
+            return redirect()->back()->with('error', $ex->getMessage());
+        }
 
         return redirect()->route('seeker_room')->with('success', 'Applicant room request is accepted');
     }

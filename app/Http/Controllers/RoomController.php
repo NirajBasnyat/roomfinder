@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Applicant;
 use Session;
 use App\Room;
+use App\User;
 use App\City;
 use App\Place;
 use App\Seeker;
@@ -59,11 +61,12 @@ class RoomController extends Controller
     }
 
 
-    public function show(Room $room)
+    public function show($id)
     {
+        $room = Room::findOrFail($id);
         //to make sure that the room seeker has a profile (so errors donot occur in view)
-        if(AppHelper::hasProfile('seeker') != null && \auth()->user()->role  == 2){
-            return AppHelper::hasProfile('seeker')->with('info','Create Profile first');
+        if (AppHelper::hasProfile('seeker') != null && \auth()->user()->role == 2) {
+            return AppHelper::hasProfile('seeker')->with('info', 'Create Profile first');
         }
 
         $user_id = Auth::id();
@@ -124,9 +127,41 @@ class RoomController extends Controller
 
     public function destroy(Room $room)
     {
-        $this->deleteUploads($room);
-       // $room->delete();
-        $room->forceDelete();
+        DB::beginTransaction();
+        try {
+            //delete the room notification
+            $room_notifications = DB::table('notifications')
+                ->where('type', 'App\Notifications\ApplicantNotification')
+                ->where('data', 'like', '%"user_id":' . $room->user_id . '%')
+                ->where('data', 'like', '%"id":' . $room->id . '%')
+                ->get();
+
+            //if there are multiple notices
+            foreach ($room_notifications as $room_notification) {
+                //find the user based on notification_table
+                $user1 = User::where('id', $room_notification->notifiable_id)->first();
+                //delete notification of that specific user
+                $user1->notifications->where('id', $room_notification->id)->first()->delete();
+            }
+
+            //delete Applicants
+            $room_applicants = Applicant::where('room_id',$room->id)->get();
+            foreach($room_applicants as $applicant){
+                $applicant->delete();
+            }
+
+            //detach applicants
+            $room->applicants()->detach();
+
+            //delete the room
+            $this->deleteUploads($room);
+            $room->forceDelete();
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollback();
+            return redirect()->back()->with('error', $ex->getMessage());
+        }
+
         return redirect()->back()->with('error', 'Room ' . AppHelper::DataDeleted);
     }
 

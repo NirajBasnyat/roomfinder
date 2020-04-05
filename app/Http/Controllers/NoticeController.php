@@ -100,7 +100,6 @@ class NoticeController extends Controller
         $user = User::where('id', $notice->user_id)->first();
 
         //----to determine the recipient roles of the notice.
-
         $arr = [];
         //getting id of roles in an array
         foreach ($notice->roles()->get() as $role) {

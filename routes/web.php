@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('seeker/my_bookmarks', 'BookmarkController@myBookmarks')->name('my_bookmarks');
 
     #-----------------------------------------------------------------------------------((Applicant/Application))
+
     Route::get('applicant/create/{id}', 'ApplicantController@create')->name('applicant.create');
     Route::post('applicant/store/{room_id}', 'ApplicantController@store')->name('applicant.store');
     Route::get('applicant/user/{user_id}/room/{room_id}', 'ApplicantController@viewApplicants')->name('applicants.view');
@@ -74,7 +75,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('owner', 'OwnerController')->except(['show', 'edit', 'create']);
 
     #-------------------------------------------------------------------------------------((Room Main))
-    Route::resource('room', 'RoomController');
+    Route::get('room/show/{id}','RoomController@show')->name('room.show');
+    Route::resource('room', 'RoomController')->except(['show']);
 
     //----------------------------------------------------------------------------------------------------
     // ((Site Admin))
