@@ -3,6 +3,8 @@
 namespace App;
 
 use App\Role;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -78,5 +80,10 @@ class User extends Authenticatable implements MustVerifyEmail
             }
         }
         return $avatar_src;
+    }
+
+    public function isOnline()
+    {
+        return Cache::has('user-is-online-' . $this->id);
     }
 }

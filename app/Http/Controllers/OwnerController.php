@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\Place;
+use App\Room;
 use Session;
 use App\Owner;
 use App\User;
@@ -19,6 +20,13 @@ class OwnerController extends Controller
         $this->middleware(['owner'])->except('show');
     }
 
+    public function dashboard()
+    {
+        $room_count = Room::all()->count();
+        $user_count = User::all()->count();
+        $seeker_count = User::where('role', 2)->count();
+        return view('room_owner.dashboard', compact('room_count', 'seeker_count', 'user_count'));
+    }
 
     public function profile()
     {

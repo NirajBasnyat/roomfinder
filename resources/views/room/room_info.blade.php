@@ -1,7 +1,7 @@
 <div class="card-body mb-2">
     <h5 class="text-muted pb-2">
         <b><i class="fas fa-home"></i> Room Title</b>
-        : {{$room->title}}
+        : {{$room->titlelimit}}
     </h5>
 
     <h5 class="text-muted pb-2">

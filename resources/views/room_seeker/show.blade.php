@@ -22,10 +22,16 @@
 
 
                     <div class="card">
-                        <div class="card-header">User Profile
+                        <div class="card-header">
+                            @if($seeker->user->isOnline())
+                                <i class="far fa-dot-circle text-success"></i>
+                                Online
+                            @else
+                                <i class="far fa-dot-circle text-muted"></i>
+                                offline
+                            @endif
 
                             <div class="card-body">
-
 
                                 {{-- ***********************************  PROFILE DISPLAY SECTION ************************************   --}}
 

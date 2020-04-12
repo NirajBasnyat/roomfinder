@@ -20,9 +20,9 @@
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">User Profile
-
-                            <!-- Button trigger modal -->
+                        <div class="card-header">
+                          <span> Your Profile</span>
+                        <!-- Button trigger modal -->
                             @if(empty($owner))
                                 <button type="button" class="btn btn-sm btn-green float-right" data-toggle="modal"
                                         data-target="#addProfile{{$user->id}}">

@@ -45,6 +45,7 @@
                                     <table class="table table-striped table-hover table-responsive-sm table-sm">
                                         <thead class="bg-green">
                                         <tr>
+                                            <th>status</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Member Since</th>
@@ -55,6 +56,13 @@
                                         <tbody>
                                         @foreach($owners as $owner)
                                             <tr>
+                                                <td>
+                                                    @if($owner->isOnline())
+                                                        <li class="text-success">Online</li>
+                                                    @else
+                                                        <li class="text-muted">Offline</li>
+                                                    @endif
+                                                </td>
                                                 <td>{{$owner->name}}</td>
                                                 <td> {{ $owner->email }} </td>
                                                 <td> {{ $owner->created_at->format('M j, Y') }} </td>
@@ -83,6 +91,7 @@
                                     <table class="table table-striped table-hover table-responsive-sm table-sm">
                                         <thead class="bg-green">
                                         <tr>
+                                            <th>status</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Member Since</th>
@@ -93,6 +102,13 @@
                                         <tbody>
                                         @foreach($seekers as $seeker)
                                             <tr>
+                                                <td>
+                                                    @if($seeker->isOnline())
+                                                        <li class="text-success">Online</li>
+                                                    @else
+                                                        <li class="text-muted">Offline</li>
+                                                    @endif
+                                                </td>
                                                 <td>{{$seeker->name}}</td>
                                                 <td> {{ $seeker->email }} </td>
                                                 <td> {{ $seeker->created_at->format('M j, Y') }} </td>

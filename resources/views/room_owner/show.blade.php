@@ -20,7 +20,15 @@
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">User Profile</div>
+                        <div class="card-header">
+                            @if($owner->user->isOnline())
+                                <i class="far fa-dot-circle text-success"></i>
+                                Online
+                            @else
+                                <i class="far fa-dot-circle text-muted"></i>
+                                offline
+                            @endif
+                        </div>
 
                         <div class="card-body">
 

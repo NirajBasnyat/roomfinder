@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     //-----------------------------------------------------------------------------------------------------
 
     #-----------------------------------------------------------------------------------((Room seeker Profile))
+    Route::get('seeker/dashboard', 'SeekerController@dashboard')->name('seeker.dashboard');
     Route::get('seeker/profile/{name}', 'SeekerController@profile')->name('seeker_profile');
     Route::get('seeker/show/{id}', 'SeekerController@show')->name('seeker.show');
     Route::resource('seeker', 'SeekerController')->except(['show', 'edit', 'create']);
@@ -70,6 +71,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     //----------------------------------------------------------------------------------------------------
 
     #----------------------------------------------------------------------------------((Room Owner Profile))
+    Route::get('owner/dashboard', 'OwnerController@dashboard')->name('owner.dashboard');
     Route::get('owner/profile/{name}', 'OwnerController@profile')->name('owner_profile');
     Route::get('owner/show/{id}', 'OwnerController@show')->name('owner.show');
     Route::resource('owner', 'OwnerController')->except(['show', 'edit', 'create']);

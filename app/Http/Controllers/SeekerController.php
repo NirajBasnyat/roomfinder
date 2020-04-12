@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Room;
 use Session;
 use App\User;
 use App\Work;
@@ -20,6 +21,14 @@ class SeekerController extends Controller
     public function __construct()
     {
         $this->middleware(['seeker'])->except('show');
+    }
+
+    public function dashboard()
+    {
+        $room_count = Room::all()->count();
+        $user_count = User::all()->count();
+        $owner_count = User::where('role',1)->count();
+        return view('room_seeker.dashboard',compact('room_count','owner_count','user_count'));
     }
 
     public function profile()

@@ -15,7 +15,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle info-number text-white" href="#" id="navbarDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bell mr-2"></i><span class="d-md-none">Notifications newwww</span>
+                    <i class="fas fa-bell mr-2"></i>
                     <span class="badge badge-success">{{auth()->user()->unreadNotifications->count()}}</span>
                 </a>
 
@@ -121,13 +121,21 @@
                     </a>
 
                     <a class="dropdown-item mt-2" href="
-                                    @if(auth()->user()->role == 1)
-                    {{route('owner_profile',auth()->user()->name)}}
+                    @if(auth()->user()->role == 1)
+                        {{route('owner_profile',auth()->user()->name)}}
                     @else
-                    {{route('seeker_profile',auth()->user()->name)}}
+                        {{route('seeker_profile',auth()->user()->name)}}
                     @endif
                         "><i class="fas fa-user-edit mr-2"></i>Go to Profile</a>
-                    <a class="dropdown-item" href="#"><i class="fas fa-question-circle mr-2"></i>Help</a>
+                    <a class="dropdown-item" href="#">
+                        @if(auth()->user()->isOnline())
+                            <i class="far fa-dot-circle text-success"></i>
+                            Online
+                        @else
+                            <i class="far fa-dot-circle text-muted"></i>
+                            offline
+                        @endif
+                    </a>
                     <div class="dropdown-divider"></div>
 
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

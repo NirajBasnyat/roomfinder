@@ -9,24 +9,22 @@
 
     </div>
     <ul class="list-unstyled components">
-        <li class="dr">
-            <a href="#sidebar_dashboard" data-toggle="collapse" aria-expanded="false" data-parent="#sidebar"
-               class="dropdown-toggle">
-                <i class="fas fa-home"></i>
-                <b>Dashboard</b>
-            </a>
-            <ul class="drm collapse list-unstyled m-0" id="sidebar_dashboard">
-                <li>
-                    <a href="#">Home</a>
-                </li>
-                <li>
-                    <a href="#">Update</a>
-                </li>
-            </ul>
-        </li>
 
         {{----------------------------------------------- start of ROOM OWNER ----------------------------------------------}}
         @if(auth()->user()->role == 1)
+
+            <li class="dr">
+                <a href="#sidebar_dashboard" data-toggle="collapse" aria-expanded="false" data-parent="#sidebar"
+                   class="dropdown-toggle">
+                    <i class="fas fa-home"></i>
+                    <b>Dashboard</b>
+                </a>
+                <ul class="drm collapse list-unstyled m-0" id="sidebar_dashboard">
+                    <li>
+                        <a href="{{route('owner.dashboard')}}">Owner Dashboard</a>
+                    </li>
+                </ul>
+            </li>
 
             <li class="dr">
                 <a href="#sidebar_accounting" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -92,6 +90,19 @@
         {{----------------------------------------------- start of ROOM SEEKER ----------------------------------------------}}
 
         @if(auth()->user()->role == 2)
+
+            <li class="dr">
+                <a href="#sidebar_dashboard" data-toggle="collapse" aria-expanded="false" data-parent="#sidebar"
+                   class="dropdown-toggle">
+                    <i class="fas fa-home"></i>
+                    <b>Dashboard</b>
+                </a>
+                <ul class="drm collapse list-unstyled m-0" id="sidebar_dashboard">
+                    <li>
+                        <a href="{{route('seeker.dashboard')}}">Seeker Dashboard</a>
+                    </li>
+                </ul>
+            </li>
 
             <li class="dr">
                 <a href="#sidebar_accounting" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">

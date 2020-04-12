@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Owner extends Model
 {
@@ -31,6 +32,8 @@ class Owner extends Model
     public function upload_groups(){
         return $this->hasMany(UploadGroups::class, 'group_id', 'image_id');
     }
+
+
 
 
 }

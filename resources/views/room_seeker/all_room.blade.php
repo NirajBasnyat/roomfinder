@@ -186,7 +186,7 @@
                                         '<td>' + room.place.name + '</td>' +
                                         '<td>' + room.created_at + '</td>' +
                                         '<td class="d-inline-flex">' +
-                                        '<a href="/room/' + room.id +'"'+ 'class="pt-1 pl-1""><i class="far fa-eye"></i></a>'
+                                        '<a href="/room/show/' + room.id +'"'+ 'class="pt-1 pl-1""><i class="far fa-eye"></i></a>'
                                         + '</td>';
 
                                     resulttag +='<td>';
