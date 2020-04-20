@@ -13,6 +13,9 @@
 {{--Toastr--}}
 <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
 
+{{--changes made for pusher--}}
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet'/>
 

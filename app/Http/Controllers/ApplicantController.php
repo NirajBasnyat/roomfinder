@@ -77,7 +77,7 @@ class ApplicantController extends Controller
             $users_array = [];
             array_push($users_array, $user_id);
 
-            #all_users_array gives hired+rejected users (so we can send notification to all users)
+            //all_users_array gives hired+rejected users (so we can send notification to all users)
             $all_users_array = array_merge($users_array, $unhired_applicants);
 
             $users = User::whereIn('id', $all_users_array)->get();

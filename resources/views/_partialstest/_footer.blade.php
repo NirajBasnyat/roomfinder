@@ -1,3 +1,5 @@
+@yield('chat')
+
 <div class="container-fluid" id="cp_footer">
     <div class="row" >
         <div class="col-12" style="">

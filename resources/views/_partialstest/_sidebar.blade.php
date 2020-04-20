@@ -84,6 +84,18 @@
                 </ul>
             </li>
 
+            <li class="dr">
+                <a href="#sidebar_chat" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-comments"></i>
+                    <b>Chats</b>
+                </a>
+                <ul class="drm collapse list-unstyled m-0" id="sidebar_chat">
+                    <li>
+                        <a href="{{route('all_friends')}}">My Friends</a>
+                    </li>
+                </ul>
+            </li>
+
         @endif
         {{----------------------------------------------- end of ROOM OWNER ----------------------------------------------}}
 

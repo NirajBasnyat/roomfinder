@@ -18,7 +18,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     // ((Default Routes))
     //-----------------------------------------------------------------------------------------------------
     Route::get('/home', 'HomeController@index')->name('home');
-
+    #-------------------------------------------------------------------------------------((Chat system))
+    Route::get('/friends','FriendController@index')->name('all_friends');
+    Route::get('/message/{id}','FriendController@getMessage')->name('message');
+    Route::post('message','FriendController@sendMessage');
     #-------------------------------------------------------------------------------------((Room Comments))
     Route::post('comment/create/{room}', 'CommentController@addRoomComment')->name('room.comment');
     Route::post('comment/update/{comment}', 'CommentController@updateRoomComment')->name('room.comment_update');
