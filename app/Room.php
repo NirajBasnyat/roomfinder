@@ -74,6 +74,11 @@ class Room extends Model
         }
     }
 
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
 
     //accessors ->manipulates the incoming data from DB before showing it to view
 

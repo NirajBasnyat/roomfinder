@@ -150,11 +150,11 @@
             <li class="dr">
                 <a href="#sidebar_feedback" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <i class="fas fa-comments"></i>
-                    <b>Testimonials</b>
+                    <b>Recommendation</b>
                 </a>
                 <ul class="drm collapse list-unstyled m-0" id="sidebar_feedback">
                     <li>
-                        <a href="#">All Feedback</a>
+                        <a href="#">Your Recommendation</a>
                     </li>
                     <li>
                         <a href="#">Add Feedback</a>
@@ -162,6 +162,18 @@
                 </ul>
             </li>
 
+
+            <li class="dr">
+                <a href="#sidebar_chat" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-comments"></i>
+                    <b>Chats</b>
+                </a>
+                <ul class="drm collapse list-unstyled m-0" id="sidebar_chat">
+                    <li>
+                        <a href="{{route('all_friends')}}">My Friends</a>
+                    </li>
+                </ul>
+            </li>
 
 
 

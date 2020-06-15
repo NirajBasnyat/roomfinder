@@ -89,6 +89,5 @@ class SeekerRoomController extends Controller
             })->select(['rooms.id', 'applicants.id', 'rooms.title', 'applicants.status', 'rooms.created_at'])
             ->paginate(5);
         return view('room_seeker.my_rooms', compact('rooms'));
-
     }
 }

@@ -2,81 +2,76 @@
 
 @section('content')
 
-    <div class="container-fluid pl-3 pr-3">
-        <div class="row">
-            <div class="col-12 p-0">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb m-0 nodecorationlist">
-                        <li class="breadcrumb-item green"><a href="{{route('home')}}" class="green"><i
-                                    class="fas fa-home mr-2"></i>Home</a></li>
-                        <li class="breadcrumb-item active gray" aria-current="page">Search Room</li>
-                    </ol>
-                </nav>
-            </div>
+<div class="container-fluid pl-3 pr-3">
+    <div class="row">
+        <div class="col-12 p-0">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb m-0 nodecorationlist">
+                    <li class="breadcrumb-item green"><a href="{{route('home')}}" class="green"><i
+                                class="fas fa-home mr-2"></i>Home</a></li>
+                    <li class="breadcrumb-item active gray" aria-current="page">Search Room</li>
+                </ol>
+            </nav>
         </div>
+    </div>
 
-        @include('_partialstest._messages')
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-12 col-md-3">
-                                    <label for="title" class="gray">City</label>
-                                    <select class="custom-select" name="city_id" id="city"
-                                            onchange="selectCity(this);">
-                                        <option value="0" disabled selected>Select City</option>
-                                        @foreach($cities as $city)
-                                            <option value="{{$city->id}}"
-                                                    id="{{$city->id}}">{{$city->name}}</option>
+    @include('_partialstest._messages')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-12 col-md-3">
+                                <label for="title" class="gray">City</label>
+                                <select class="custom-select" name="city_id" id="city" onchange="selectCity(this);">
+                                    <option value="0" disabled selected>Select City</option>
+                                    @foreach($cities as $city)
+                                    <option value="{{$city->id}}" id="{{$city->id}}">{{$city->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-md-3">
+                                <div class="form-group">
+                                    <label for="title" class="gray">Place</label>
+                                    <select class="custom-select" id="select_place">
+                                        <option value="0" disabled selected>Select City First</option>
+                                    </select>
+                                    @foreach($cities as $city)
+                                    <select class="places custom-select" name="place_id" id="{{'pid'.$city->id}}"
+                                        style="display: none;">
+                                        <option value="0" disabled selected>Select place</option>
+                                        @foreach($city->places as $place)
+                                        <option value="{{$place->id}}" id="{{$place->id}}">{{$place->name}}</option>
                                         @endforeach
                                     </select>
-                                </div>
-
-                                <div class="col-12 col-md-3">
-                                    <div class="form-group">
-                                        <label for="title" class="gray">Place</label>
-                                        <select class="custom-select" id="select_place">
-                                            <option value="0" disabled selected>Select City First</option>
-                                        </select>
-                                        @foreach($cities as $city)
-                                            <select class="places custom-select" name="place_id"
-                                                    id="{{'pid'.$city->id}}"
-                                                    style="display: none;">
-                                                <option value="0" disabled selected>Select place</option>
-                                                @foreach($city->places as $place)
-                                                    <option value="{{$place->id}}"
-                                                            id="{{$place->id}}">{{$place->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        @endforeach
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-md-4">
-                                    <label for="title" class="gray">Category</label>
-                                    <select class="form-control float-right" name="category_id"
-                                            id="category" required>
-                                        <option value="" selected disabled>Select Category</option>
-                                        @foreach($categories as $category)
-                                            <option class="dropdown-item" type="button" value="{{$category->id}}"
-                                                    id="{{$category->id}}">{{$category->name}}</option>
-                                        @endforeach
-                                    </select></div>
-
-                                <div class="col-12 col-md-2">
-                                    <button class="btn btn-sm btn-info px-3" style="margin-top: 2.5em" type="submit" id="searchBtn">Search</button>
+                                    @endforeach
                                 </div>
                             </div>
 
+                            <div class="col-12 col-md-4">
+                                <label for="title" class="gray">Category</label>
+                                <select class="form-control float-right" name="category_id" id="category" required>
+                                    <option value="" selected disabled>Select Category</option>
+                                    @foreach($categories as $category)
+                                    <option class="dropdown-item" type="button" value="{{$category->id}}"
+                                        id="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
+                                </select></div>
+
+                            <div class="col-12 col-md-2">
+                                <button class="btn btn-sm btn-info px-3" style="margin-top: 2.5em" type="submit"
+                                    id="searchBtn">Search</button>
+                            </div>
                         </div>
 
-                        <div class="card-body mt-0">
-                            <div class="table-responsive">
-                                <table id="myTable"
-                                       class="table table-striped table-hover table-responsive-sm table-sm">
-                                    <thead class="bg-green">
+                    </div>
+
+                    <div class="card-body mt-0">
+                        <div class="table-responsive">
+                            <table id="myTable" class="table table-striped table-hover table-responsive-sm table-sm">
+                                <thead class="bg-green">
                                     <tr>
                                         <th>Room</th>
                                         <th>City</th>
@@ -84,37 +79,37 @@
                                         <th>Created at</th>
                                         <th>Action</th>
                                     </tr>
-                                    </thead>
-                                    <tbody>
+                                </thead>
+                                <tbody>
                                     @foreach ($rooms as $room)
-                                        <tr>
-                                            <td>{{$room->title}}</td>
-                                            <td>{{$room->city->name}}</td>
-                                            <td>{{$room->place->name}}</td>
-                                            <td>{{$room->created_at}}</td>
-                                            <td class="d-inline-flex">
-                                                <a href="{{route('room.show',$room->id)}}" class="pt-1 pl-1"><i
-                                                        class="far fa-eye"></i></a>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td>{{$room->title}}</td>
+                                        <td>{{$room->city->name}}</td>
+                                        <td>{{$room->place->name}}</td>
+                                        <td>{{$room->created_at}}</td>
+                                        <td class="d-inline-flex">
+                                            <a href="{{route('room.show',$room->id)}}" class="pt-1 pl-1"><i
+                                                    class="far fa-eye"></i></a>
+                                        </td>
+                                    </tr>
                                     @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="card-footer">
-                            {{$rooms->links()}}
-                        </div>
+                    </div>
+                    <div class="card-footer">
+                        {{$rooms->links()}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection
 
 @section('js')
-    <script>
-        window.sms =<?php echo json_encode([
+<script>
+    window.sms =<?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>;
 
@@ -209,5 +204,5 @@
         });
 
 
-    </script>
+</script>
 @endsection

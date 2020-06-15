@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Room;
 use Session;
+use App\Room;
 use App\User;
 use App\Work;
 use App\City;

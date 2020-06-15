@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Applicant;
+use App\Rating;
 use Session;
 use App\Room;
 use App\User;
@@ -11,6 +11,7 @@ use App\Place;
 use App\Seeker;
 use App\Facility;
 use App\Category;
+use App\Applicant;
 use Illuminate\Http\Request;
 use App\Http\Helper\AppHelper;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +21,7 @@ class RoomController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['owner'])->except('show');
+        $this->middleware(['owner'])->except(['show','addRating','recommendationMatrix']);
     }
 
     public function index()
@@ -89,9 +90,14 @@ class RoomController extends Controller
                 return $query->where('applicants.room_id', $room_id);
             })->when($user_id, function ($query) use ($user_id) {
                 return $query->where('applicants.user_id', $user_id);
-            })->select('applicants.id','status')->first();
+            })->select('applicants.id', 'status')->first();
 
-        return view('room.show', compact('room','is_applied','seeker'));
+        $rating = Rating::where('user_id', auth()->id())->where('room_id', $room_id)->first();
+        if ($rating == null) {
+            $rating = 0;
+        }
+
+        return view('room.show', compact('room', 'is_applied', 'seeker', 'rating'));
     }
 
 
@@ -164,6 +170,124 @@ class RoomController extends Controller
 
         return redirect()->back()->with('error', 'Room ' . AppHelper::DataDeleted);
     }
+
+    //-------------------------------------------------rating and recommendation
+    public function addRating(Request $request)
+    {
+        $rating = Rating::updateOrCreate(
+            ['user_id' => $request->user_id, 'room_id' => $request->room_id, 'title' => $request->title],
+            ['rating' => $request->rating, ]
+        );
+    }
+
+    public function recommendationMatrix()
+    {
+        $ratings = Rating::all();
+        $matrix = array(); //matrix representation
+        //dd($ratings);
+
+        foreach ($ratings as $rating) {
+            $users = User::where('id', $rating->user_id)->pluck('name')->toArray();
+
+            foreach ($users as $user) {
+                $matrix[$user] [$rating->room['titleLimit']] = $rating['rating'];
+            }
+        }
+
+//         dd($matrix[Auth::user()->name]);
+        $rooms = $this->getRecommendation($matrix, Auth::user()->name);
+
+   //    dd($rooms);
+   
+
+    //filter rated rooms array into rooms
+     $temp_array = array();
+     foreach ($ratings as $rating) {
+        foreach ($rooms as $t => $r) {
+            if($rating->title == $t){
+                array_push($temp_array,$rating->room_id);
+            }
+        }
+    }
+
+    $recommedated_rooms = Room::whereIn('id',$temp_array)->get();
+    return view('room_seeker.recommendation',compact('recommedated_rooms'));
+
+
+    }
+
+
+    function getRecommendation($matrix, $authUser)
+    {
+        $total = array();
+        $simSum = array();
+        $ranks = array();
+
+        foreach ($matrix as $otherUser => $val) {
+
+            if ($otherUser !== $authUser) {
+                $sim = $this->similarityDistance($matrix, $authUser, $otherUser);
+
+                //formula part
+                foreach ($matrix[$otherUser] as $key => $value) {
+                    if (!array_key_exists($key, $matrix[$authUser])) {
+                        if (!array_key_exists($key, $total)) {
+                            $total[$key] = 0;
+                        }
+
+                        $total[$key] += $matrix[$otherUser][$key] * $sim;
+
+                        if (!array_key_exists($key, $simSum)) {
+                            $simSum[$key] = 0;
+                        }
+
+                        $simSum[$key] += $sim;
+                    }
+                }
+
+            }
+        }
+
+        //div num with dino
+        foreach ($total as $key => $value) {
+            $ranks[$key] = $value / $simSum[$key];
+
+            array_multisort($ranks, SORT_DESC);
+        }
+
+        //    dd($ranks);
+        return $ranks;
+    }
+
+    function similarityDistance($matrix, $authUser, $otherUser)
+    {
+        $similarity = array();
+        $sum = 0;
+
+        foreach ($matrix[$authUser] as $key => $value) {
+            if (array_key_exists($key, $matrix[$otherUser])) {
+                $similarity[$key] = 1;
+            }
+        }
+
+        if ($similarity == 0) {
+            return 0;
+        }
+
+        foreach ($matrix[$authUser] as $key => $value) {
+            if (array_key_exists($key, $matrix[$otherUser])) {
+                $sum = $sum + pow($value - $matrix[$otherUser][$key], 2);
+            }
+        }
+
+        return 1 / (1 + sqrt($sum));
+        // var_dump (1/(1+sqrt($sum)));
+
+
+    } //end of function
+
+
+
 
     public function validateRequest()
     {
