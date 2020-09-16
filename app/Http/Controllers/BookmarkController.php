@@ -13,24 +13,24 @@ class BookmarkController extends Controller
     {
         Bookmark::create([
             'room_id' => $id,
-            'user_id' =>auth()->id()
+            'user_id' => auth()->id()
         ]);
 
-        return redirect()->back()->with('success','Bookmark '. AppHelper::DataAdded);
+        return redirect()->back()->with('success', 'Bookmark ' . AppHelper::DataAdded);
     }
 
     public function removeBookmark($id) //$room_id
     {
         $bookmark = Bookmark::where('room_id', $id)->where('user_id', auth()->id())->first();
         $bookmark->delete();
-        return redirect()->back()->with('success','Bookmark '. AppHelper::DataDeleted);
-
-
+        return redirect()->back()->with('success', 'Bookmark ' . AppHelper::DataDeleted);
     }
 
     public function myBookmarks()
     {
-        $rooms = DB::table('rooms')->join('bookmarks','rooms.id','=','bookmarks.room_id')->paginate(5);
-        return view('bookmark.bookmarks',compact('rooms'));
+        $rooms = DB::table('rooms')
+            ->join('bookmarks', 'rooms.id', '=', 'bookmarks.room_id')
+            ->paginate(5);
+        return view('bookmark.bookmarks', compact('rooms'));
     }
 }

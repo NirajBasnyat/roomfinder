@@ -37,6 +37,14 @@ $('#'.data.from).append('<span class="pending">1</span>');
 }
 });
 
+public function reject($user_id, $room_id)
+{
+    $applicant = Applicant::where('user_id', $user_id)->where('room_id', $room_id)->first();
+    $applicant->status = 'rejected';
+    $applicant->save();
+    return redirect()->route('seeker_room');
+}
+<h2>asdasda</h2>
 
 
 
