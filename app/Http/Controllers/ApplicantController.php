@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Helper\AppHelper;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\ApplicantNotification;
-
+use App\Notifications\ApplicationIsAddedNotification;
 
 class ApplicantController extends Controller
 {
@@ -26,13 +26,30 @@ class ApplicantController extends Controller
             'message' => 'required|string|min:10'
         ]);
 
-        $applicant = Applicant::create([
-            'user_id' => \auth()->id(),
-            'message' => $request->message,
-            'room_id' => $room_id
-        ]);
+        DB::beginTransaction();
+        try {
 
-        $applicant->rooms()->attach($room_id);
+            $applicant = Applicant::create([
+                'user_id' => \auth()->id(),
+                'message' => $request->message,
+                'room_id' => $room_id
+            ]);
+
+            $applicant->rooms()->attach($room_id);
+
+            $room_owner = Room::where('id', $room_id)->first()->user()->select(['id', 'name', 'email'])->first();
+
+            $room = Room::where('id', $room_id)->select(['id','title','user_id','created_at'])->first();
+
+            if (\Notification::send($room_owner, new ApplicationIsAddedNotification($room))) {
+                return back();
+            }
+
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollback();
+            return redirect()->back()->with('error', $ex->getMessage());
+        }
         return redirect()->route('seeker_room')->with('success', 'Application sent successfully');
     }
 
@@ -81,16 +98,15 @@ class ApplicantController extends Controller
             $all_users_array = array_merge($users_array, $unhired_applicants);
 
             $users = User::whereIn('id', $all_users_array)->get();
-           // $applicant_all = Applicant::where('room_id', $room_id)->whereIn('user_id', $all_users_array)->get();
+            /*   $applicant_all = Applicant::where('room_id', $room_id)->whereIn('user_id', $all_users_array)->get();*/
 
-            $room = Room::where('id', $room_id)->select(['id', 'title','user_id', 'created_at'])->first();
+            $room = Room::where('id', $room_id)->select(['id', 'title', 'user_id', 'created_at'])->first();
 
             if (\Notification::send($users, new ApplicantNotification($room))) {
                 return back();
             }
 
             DB::commit();
-
         } catch (\Exception $ex) {
             DB::rollback();
             dd($ex->getMessage());

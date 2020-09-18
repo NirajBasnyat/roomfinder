@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Rating;
 use Session;
+use App\City;
 use App\Room;
 use App\User;
-use App\City;
 use App\Place;
+use App\Rating;
 use App\Seeker;
-use App\Facility;
 use App\Category;
+use App\Facility;
 use App\Applicant;
 use Illuminate\Http\Request;
 use App\Http\Helper\AppHelper;
@@ -285,9 +285,6 @@ class RoomController extends Controller
 
 
     } //end of function
-
-
-
 
     public function validateRequest()
     {
