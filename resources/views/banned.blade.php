@@ -20,7 +20,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Dashboard</div>
+                    <div class="card-header text-center bg-danger text-white h3">Oops !! Something went wrong ?!?</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -29,7 +29,9 @@
                         </div>
                         @endif
 
-                        Welcome to our system
+                        <h3 class="text-center text-danger">
+                            Sorry You have been blocked from using our service as due to voilation of our policy
+                        </h3>
                     </div>
                 </div>
             </div>

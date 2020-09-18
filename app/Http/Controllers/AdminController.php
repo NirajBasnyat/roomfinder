@@ -18,9 +18,9 @@ class AdminController extends Controller
     {
         $room_count = Room::all()->count();
         $user_count = User::all()->count();
-        $owner_count = User::where('role',1)->count();
+        $owner_count = User::where('role', 1)->count();
         $seeker_count = User::where('role', 2)->count();
-        return view('admin.dashboard',compact('room_count','seeker_count','owner_count','user_count'));
+        return view('admin.dashboard', compact('room_count', 'seeker_count', 'owner_count', 'user_count'));
     }
 
     public function index()
@@ -35,8 +35,11 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->role = 3; //any role_id other than 1,2
         $user->save();
-        $user_room = Room::where('user_id', $id)->pluck('id');
-        Room::whereIn('user_id', $user_room)->delete();
+
+        /* $user_room = Room::where('user_id', $id)->pluck('id');
+       Room::whereIn('user_id', $user_room)->delete(); */
+
+        Room::where('user_id', $id)->delete();
         return redirect()->back()->with('success', $user->name . ' ' . AppHelper::UserBanned);
     }
 
@@ -45,8 +48,9 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $user->role = AppHelper::OwnerRoleId;
         $user->save();
-        $user_room = Room::withTrashed()->where('user_id', $id)->pluck('id');
-        Room::withTrashed()->whereIn('user_id', $user_room)->restore();
+        // $user_room = Room::withTrashed()->where('user_id', $id)->pluck('id');
+        // Room::withTrashed()->whereIn('user_id', $user_room)->restore();
+        Room::withTrashed()->where('user_id', $id)->restore();
         return redirect()->back()->with('success', $user->name . ' ' . AppHelper::UserUnbanned);
     }
 
@@ -67,5 +71,4 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', $user->name . ' ' . AppHelper::UserUnbanned);
     }
-
 }
