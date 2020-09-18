@@ -9,7 +9,7 @@
                 <ol class="breadcrumb m-0 nodecorationlist">
                     <li class="breadcrumb-item green"><a href="{{route('home')}}" class="green"><i
                                 class="fas fa-home mr-2"></i>Home</a></li>
-                    <li class="breadcrumb-item green"><a href="{{route('room.index')}}" class="green">All Room</a>
+                    <li class="breadcrumb-item green"><a href="{{route('seeker_room')}}" class="green">All Room</a>
                     </li>
                     <li class="breadcrumb-item active gray" aria-current="page">About Room
                     </li>

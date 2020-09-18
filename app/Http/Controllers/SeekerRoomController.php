@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\City;
 use App\Place;
 use App\Room;
@@ -75,7 +74,9 @@ class SeekerRoomController extends Controller
     public function allRoomSearch()
     {
         $categories = Category::all();
-        $rooms = Room::with('city')->with('place')->with('category')->select(['id', 'title', 'price', 'city_id', 'place_id', 'category_id', 'created_at'])->paginate(10);
+        $rooms = Room::with('city')
+            ->with('place')->with('category')
+            ->select(['id', 'title', 'price', 'city_id', 'place_id', 'category_id', 'created_at'])->paginate(10);
         return view('room_seeker.index', compact('rooms', 'categories'));
     }
 
