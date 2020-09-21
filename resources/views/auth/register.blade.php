@@ -123,7 +123,7 @@
 
                 <div class="form">
                     <div class="card mx-auto animated pulse" id="login-card">
-                        <div class="card-body mt-3">
+                        <div class="card-body ">
                             <form class="custom-hover" action="{{ route('register') }}" method="POST">
                                 @csrf
 
@@ -208,10 +208,12 @@
                                             onclick="anim()">Register</button>
                                     </div>
                                 </div>
-                                <hr>
-
-
                             </form>
+                        </div>
+
+                        <div class="card-footer text-center text-muted" style="font-size: 13px">By Registering you agree
+                            to our policies
+                            <span><a href="">Read More</a></span>
                         </div>
                     </div>
                 </div>

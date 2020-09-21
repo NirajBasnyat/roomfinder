@@ -36,6 +36,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/add_rating', 'RoomController@addRating')->name('add_rating');
     Route::get('/recommendation', 'RoomController@recommendationMatrix')->name('recommendationMatrix');
 
+    #---------------------------------------------------------------------------------------------((Testimonial))
+    Route::get('testimonial/approve/{testimonial}', 'TestimonialController@approve')->name('testimonial.approve');
+    Route::get('testimonial/disapprove/{testimonial}', 'TestimonialController@disapprove')->name('testimonial.disapprove');
+    Route::resource('testimonial', 'TestimonialController')->except('show');
+
     //-----------------------------------------------------------------------------------------------------------------------
     // ((Room Seeker))
     //-----------------------------------------------------------------------------------------------------------------------

@@ -76,10 +76,11 @@
             </a>
             <ul class="drm collapse list-unstyled m-0" id="sidebar_feedback">
                 <li>
-                    <a href="#">All Feedback</a>
+                    <a href="{{route('testimonial.index')}}">My Testimonials</a>
                 </li>
+
                 <li>
-                    <a href="#">Add Feedback</a>
+                    <a href="{{route('testimonial.create')}}">Create Testimonial</a>
                 </li>
             </ul>
         </li>
@@ -159,6 +160,22 @@
             </ul>
         </li>
 
+        <li class="dr">
+            <a href="#sidebar_users" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-users"></i>
+                <b>Testimonials</b>
+            </a>
+            <ul class="drm collapse list-unstyled m-0" id="sidebar_users">
+                <li>
+                    <a href="{{route('testimonial.index')}}">My Testimonials</a>
+                </li>
+
+                <li>
+                    <a href="{{route('testimonial.create')}}">Create Testimonial</a>
+                </li>
+            </ul>
+        </li>
+
 
         <li class="dr">
             <a href="#sidebar_chat" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -229,6 +246,18 @@
                 </li>
                 <li>
                     <a href="{{route('notice.create')}}">Add Notices</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="dr">
+            <a href="#sidebar_users" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-users"></i>
+                <b>Testimonials</b>
+            </a>
+            <ul class="drm collapse list-unstyled m-0" id="sidebar_users">
+                <li>
+                    <a href="{{route('testimonial.store')}}">All Testimonials</a>
                 </li>
             </ul>
         </li>

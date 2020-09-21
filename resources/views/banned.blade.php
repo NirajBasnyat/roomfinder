@@ -30,7 +30,7 @@
                         @endif
 
                         <h3 class="text-center text-danger">
-                            Sorry You have been blocked from using our service as due to voilation of our policy
+                            Sorry, You have been banned from using our services SEE MORE HERE
                         </h3>
                     </div>
                 </div>
