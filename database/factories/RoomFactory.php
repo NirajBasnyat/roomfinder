@@ -23,7 +23,7 @@ $factory->define(Room::class, function (Faker $faker) {
         'city_id' => $city_id,
         'place_id' => $place_id,
         'price' => $faker->numberBetween($min = 3000, $max = 10000),
-        'user_id' => 2,
+        'user_id' => rand(2,3),
         'total_rooms' => $faker->randomDigitNotNull,
         'category_id' => $faker->randomElement($category_ids),
         'description' => $faker->text(200)
