@@ -102,8 +102,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('admin/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
     Route::get('admin/banOwner/{id}', 'AdminController@banOwner')->name('admin.ban_owner');
     Route::get('admin/unbanOwner/{id}', 'AdminController@unbanOwner')->name('admin.unban_owner');
-    Route::get('admin/banSeeker/{id}', 'AdminController@banSeeker')->name('admin.ban_seeker');
     Route::get('admin/unbanSeeker/{id}', 'AdminController@unbanSeeker')->name('admin.unban_seeker');
+    Route::get('admin/banSeeker/{id}', 'AdminController@banSeeker')->name('admin.ban_seeker');
 
     #----------------------------------------------------------------------------------------------------((Room Category))
 

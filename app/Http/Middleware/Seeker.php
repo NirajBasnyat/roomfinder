@@ -15,10 +15,12 @@ class Seeker
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->role == 2){
+        if (auth()->user()->role == 2) {
             return $next($request);
         }
-        abort(401, 'This action is unauthorized.');
+
+
+        // abort(401, 'This action is unauthorized.');
         return redirect('/');
     }
 }

@@ -8,6 +8,8 @@ class City extends Model
 {
     public $timestamps = false;
 
+    protected $guarded = [];
+
     public function places()
     {
         return $this->hasMany(Place::class);

@@ -18,7 +18,7 @@ class Admin
         if(auth()->user()->admin){
             return $next($request);
         }
-        abort(401,'This action is unauthorized');
+        // abort(401,'This action is unauthorized');
         return redirect('/');
 
     }

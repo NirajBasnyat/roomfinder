@@ -39,7 +39,6 @@ class OwnerController extends Controller
 
     public function index()
     {
-
     }
 
     public function store(Request $request)
@@ -73,7 +72,6 @@ class OwnerController extends Controller
 
         Session::flash('success', 'Profile ' . AppHelper::DataAdded);
         return redirect()->back();
-
     }
 
     public function show($id)
@@ -115,7 +113,7 @@ class OwnerController extends Controller
             $user->owner->save();
 
             DB::commit();
-        } catch (\Exception $e) {
+        } catch (\Exception $ex) {
             DB::rollBack();
             return redirect()->back()->with('error', $ex->getMessage())->withInput();
         }
@@ -150,5 +148,4 @@ class OwnerController extends Controller
             'description' => 'required|string|min:5'
         ]);
     }
-
 }

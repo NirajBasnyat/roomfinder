@@ -143,6 +143,7 @@
                         <img src="{{auth()->user()->avatar(auth()->user()->role)}}" alt="Profile Image" />
                     </a>
 
+                    @if(!auth()->user()->admin)
                     <a class="dropdown-item mt-2" href="
                     @if(auth()->user()->role == 1)
                         {{route('owner_profile',auth()->user()->name)}}
@@ -150,6 +151,8 @@
                         {{route('seeker_profile',auth()->user()->name)}}
                     @endif
                         "><i class="fas fa-user-edit mr-2"></i>Go to Profile</a>
+
+                    @endif
                     <a class="dropdown-item" href="#">
                         @if(auth()->user()->isOnline())
                         <i class="far fa-dot-circle text-success"></i>

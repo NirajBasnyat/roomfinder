@@ -18,7 +18,7 @@ class Owner
         if (auth()->user()->role == 1) {
             return $next($request);
         }
-        abort(401, 'This action is unauthorized.');
+        // abort(401, 'This action is unauthorized.');
         return redirect('/');
     }
 }
