@@ -21,7 +21,7 @@ class RoomController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['owner'])->except(['show','addRating','recommendationMatrix']);
+        $this->middleware(['owner'])->except(['show', 'addRating', 'recommendationMatrix']);
     }
 
     public function index()
@@ -33,8 +33,8 @@ class RoomController extends Controller
     public function create()
     {
         //to make sure that the room owner has to profile (so errors donot occur in view)
-        if(AppHelper::hasProfile('owner') != null){
-            return AppHelper::hasProfile('owner')->with('info','Create Profile first');
+        if (AppHelper::hasProfile('owner') != null) {
+            return AppHelper::hasProfile('owner')->with('info', 'Create Profile first');
         }
         $cities = City::all(['name', 'id']);
         $places = Place::all(['name', 'id']);
@@ -81,7 +81,7 @@ class RoomController extends Controller
         }
         $room->save();
 
-        $seeker = Seeker::where('user_id',\auth()->user()->id)->first();
+        $seeker = Seeker::where('user_id', \auth()->user()->id)->first();
 
         //to check if user has (already) applied to a job or not
         $is_applied = DB::table('applicants')
@@ -151,8 +151,8 @@ class RoomController extends Controller
             }
 
             //delete Applicants
-            $room_applicants = Applicant::where('room_id',$room->id)->get();
-            foreach($room_applicants as $applicant){
+            $room_applicants = Applicant::where('room_id', $room->id)->get();
+            foreach ($room_applicants as $applicant) {
                 $applicant->delete();
             }
 
@@ -176,7 +176,7 @@ class RoomController extends Controller
     {
         $rating = Rating::updateOrCreate(
             ['user_id' => $request->user_id, 'room_id' => $request->room_id, 'title' => $request->title],
-            ['rating' => $request->rating, ]
+            ['rating' => $request->rating,]
         );
     }
 
@@ -184,36 +184,33 @@ class RoomController extends Controller
     {
         $ratings = Rating::all();
         $matrix = array(); //matrix representation
-        //dd($ratings);
+        // dd($ratings);
 
         foreach ($ratings as $rating) {
             $users = User::where('id', $rating->user_id)->pluck('name')->toArray();
-
             foreach ($users as $user) {
-                $matrix[$user] [$rating->room['titleLimit']] = $rating['rating'];
+                $matrix[$user][$rating->room['titleLimit']] = $rating['rating'];
             }
         }
 
-//         dd($matrix[Auth::user()->name]);
+        // dd($matrix[Auth::user()->name]);
         $rooms = $this->getRecommendation($matrix, Auth::user()->name);
 
-   //    dd($rooms);
-   
+        //    dd($rooms);
 
-    //filter rated rooms array into rooms
-     $temp_array = array();
-     foreach ($ratings as $rating) {
-        foreach ($rooms as $t => $r) {
-            if($rating->title == $t){
-                array_push($temp_array,$rating->room_id);
+
+        //filter rated rooms array into rooms
+        $temp_array = array();
+        foreach ($ratings as $rating) {
+            foreach ($rooms as $t => $r) {
+                if ($rating->title == $t) {
+                    array_push($temp_array, $rating->room_id);
+                }
             }
         }
-    }
 
-    $recommedated_rooms = Room::whereIn('id',$temp_array)->get();
-    return view('room_seeker.recommendation',compact('recommedated_rooms'));
-
-
+        $recommedated_rooms = Room::whereIn('id', $temp_array)->where('deleted_at', null)->get();
+        return view('room_seeker.recommendation', compact('recommedated_rooms'));
     }
 
 
@@ -244,7 +241,6 @@ class RoomController extends Controller
                         $simSum[$key] += $sim;
                     }
                 }
-
             }
         }
 

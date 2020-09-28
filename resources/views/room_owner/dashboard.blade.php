@@ -29,8 +29,8 @@
                                     <div class="row countrow">
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-6 count_tile count_border textwrap">
                                         <span class="counttop">
-                                            <i class="fas fa-user mr-2"></i>Total Users</span>
-                                            <div class="count green pl-4">{{$user_count}}</div>
+                                            <i class="fas fa-user mr-2"></i>Room Seekers</span>
+                                            <div class="count green pl-4">{{$seeker_count   }}</div>
                                             <span class="countbottom">
                                             <i class="green mr-2">4% <i class="fas fa-level-up-alt"></i></i>From last
                                             week
@@ -39,8 +39,8 @@
 
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-6 count_tile count_border textwrap">
                                         <span class="counttop">
-                                            <i class="fas fa-male mr-2"></i>Room Seekers</span>
-                                            <div class="green count pl-4">{{$seeker_count}}</div>
+                                            <i class="fas fa-male mr-2"></i>Room Requests</span>
+                                            <div class="green count pl-4">{{$room_requests}}</div>
                                             <span class="countbottom">
                                             <i class="green mr-2 ">14% <i class="fas fa-level-up-alt"></i></i>From last
                                             week

@@ -22,10 +22,10 @@ class OwnerController extends Controller
 
     public function dashboard()
     {
-        $room_count = Room::all()->count();
-        $user_count = User::all()->count();
-        $seeker_count = User::where('role', 2)->count();
-        return view('room_owner.dashboard', compact('room_count', 'seeker_count', 'user_count'));
+        $room_count = Room::where('user_id', auth()->id())->count();
+        $seeker_count = User::where('role',2)->count();
+        $room_requests = Owner::where('user_id',auth()->id())->first()->applicants->count();
+        return view('room_owner.dashboard', compact('room_count', 'room_requests', 'seeker_count'));
     }
 
     public function profile()
