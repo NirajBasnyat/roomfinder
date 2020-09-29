@@ -213,7 +213,7 @@
 
                         <div class="card-footer text-center text-muted" style="font-size: 13px">By Registering you agree
                             to our policies
-                            <span><a href="">Read More</a></span>
+                            <span><a href="{{route('read_more')}}">Read More</a></span>
                         </div>
                     </div>
                 </div>

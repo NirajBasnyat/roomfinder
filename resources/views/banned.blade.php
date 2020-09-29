@@ -30,7 +30,8 @@
                         @endif
 
                         <h3 class="text-center text-danger">
-                            Sorry, You have been banned from using our services SEE MORE HERE
+                            Sorry, You have been banned from using our services
+                            <a href="{{route('read_more')}}">See more here</a>
                         </h3>
                     </div>
                 </div>

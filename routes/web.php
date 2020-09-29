@@ -8,6 +8,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('/');
 
+Route::view('/read_more','read_more')->name('read_more');
 Auth::routes(['verify' => true]);
 
 #------------------------------------------------------------------------------------------------------------------------#
