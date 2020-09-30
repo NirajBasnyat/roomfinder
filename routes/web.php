@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('/');
 
-Route::view('/read_more','read_more')->name('read_more');
+Route::view('/read_more', 'read_more')->name('read_more');
 Auth::routes(['verify' => true]);
 
 #------------------------------------------------------------------------------------------------------------------------#
@@ -108,6 +108,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     #----------------------------------------------------------------------------------------------------((Room Category))
 
+    Route::put('/tasks/{task}/toggle', 'TaskController@toggle')->name('tasks.toggle');
+    Route::resource('/tasks', 'TaskController')->except('show');
+
+    #----------------------------------------------------------------------------------------------------((Room Category))
     Route::resource('room_category', 'CategoryController')->except(['show', 'edit', 'create']);
 
     #-----------------------------------------------------------------------------------------=--------((Room Facilities))
