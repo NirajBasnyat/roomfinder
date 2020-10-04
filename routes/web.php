@@ -8,9 +8,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('/');
 
-Route::view('/read_more', 'read_more')->name('read_more');
 Auth::routes(['verify' => true]);
 
+Route::view('/read_more', 'read_more')->name('read_more');
+Route::get('request_report/report/{reported_user_id}', 'RequestReportController@show_report_form')->name('report.user_form');
+Route::resource('request_report', 'RequestReportController');
 #------------------------------------------------------------------------------------------------------------------------#
 
 Route::group(['middleware' => ['auth', 'verified']], function () {

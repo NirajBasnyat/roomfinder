@@ -23,6 +23,15 @@
 
                     <div class="card">
                         <div class="card-header">
+                            
+                            @if (! auth()->user()->admin)
+                                <a href="{{route('report.user_form',$seeker->user_id)}}" class="btn btn-sm btn-outline-info float-right">
+                                    Report User
+                                </a>
+                            @else
+                                <a href="{{route('admin.ban_seeker',$seeker->user_id)}}" class="btn btn-sm btn-outline-danger float-right">Ban</a>
+                            @endif
+
                             @if($seeker->user->isOnline())
                                 <i class="far fa-dot-circle text-success"></i>
                                 Online

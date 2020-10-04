@@ -19,7 +19,6 @@ class Seeker
             return $next($request);
         }
 
-
         // abort(401, 'This action is unauthorized.');
         return redirect('/');
     }

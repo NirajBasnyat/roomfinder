@@ -41,7 +41,7 @@
 
                         <button type="button" class="btn btn-sm btn-green float-right " data-toggle="modal"
                             data-target="#updateProfile{{$user->id}}">
-                            <i class="fas fa-edit"></i> Update Profile
+                            <i class="fas fa-editfas fa-edit"></i> Update Profile
                         </button>
                         @endif
                     </div>

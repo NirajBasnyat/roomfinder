@@ -27,8 +27,8 @@ class SeekerController extends Controller
     {
         $room_count = Room::all()->count();
         $user_count = User::all()->count();
-        $owner_count = User::where('role',1)->count();
-        return view('room_seeker.dashboard',compact('room_count','owner_count','user_count'));
+        $owner_count = User::where('role', 1)->count();
+        return view('room_seeker.dashboard', compact('room_count', 'owner_count', 'user_count'));
     }
 
     public function profile()
@@ -36,16 +36,15 @@ class SeekerController extends Controller
         $user = Auth::user();
         $cities = City::all(['name', 'id']);
         $places = Place::all(['name', 'id']);
-        $educations = Education::where('user_id',$user->id)->get();
-        $works = Work::where('user_id',$user->id)->get();
+        $educations = Education::where('user_id', $user->id)->get();
+        $works = Work::where('user_id', $user->id)->get();
         $seeker = Seeker::where('user_id', $user->id)->first();
-        return view('room_seeker.profile', compact('user', 'seeker', 'cities', 'seeker','educations','works'));
+        return view('room_seeker.profile', compact('user', 'seeker', 'cities', 'seeker', 'educations', 'works'));
     }
 
 
     public function index()
     {
-
     }
 
     public function store(Request $request)
@@ -54,7 +53,9 @@ class SeekerController extends Controller
 
         DB::beginTransaction();
         try {
-            $seeker = Seeker::firstOrNew(array_merge(collect($this->validateRequest())->except(['avatar','name','email'])->toArray(),['user_id' => Auth::user()->id]));
+            $seeker = Seeker::firstOrNew(array_merge(collect($this->validateRequest())
+                ->except(['avatar', 'name', 'email'])
+                ->toArray(), ['user_id' => Auth::user()->id]));
             $seeker->user->name = $request->name;
             $seeker->user->email = $request->email;
             $seeker->save();
@@ -76,16 +77,15 @@ class SeekerController extends Controller
 
         Session::flash('success', 'Seeker Profile ' . AppHelper::DataAdded);
         return redirect()->back();
-
     }
 
     public function show($user_id)
     {
         $user = User::findOrFail($user_id);
-        $works = Work::where('user_id',$user->id)->get();
-        $seeker = Seeker::where('user_id',$user_id)->first();
-        $educations = Education::where('user_id',$user->id)->get();
-        return view('room_seeker.show',compact('seeker','user','works','educations'));
+        $works = Work::where('user_id', $user->id)->get();
+        $seeker = Seeker::where('user_id', $user_id)->first();
+        $educations = Education::where('user_id', $user->id)->get();
+        return view('room_seeker.show', compact('seeker', 'user', 'works', 'educations'));
     }
 
     public function update(Request $request, Seeker $seeker)
@@ -94,7 +94,7 @@ class SeekerController extends Controller
 
         DB::beginTransaction();
         try {
-            $seeker->fill(array_merge(collect($this->validateRequest())->except(['avatar','name','email'])->toArray(),['user_id' => Auth::user()->id]));
+            $seeker->fill(array_merge(collect($this->validateRequest())->except(['avatar', 'name', 'email'])->toArray(), ['user_id' => Auth::user()->id]));
             $seeker->user->name = $request->name;
             $seeker->user->email = $request->email;
             $seeker->save();

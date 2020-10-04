@@ -32,6 +32,10 @@
                         <h3 class="text-center text-danger">
                             Sorry, You have been banned from using our services
                             <a href="{{route('read_more')}}">See more here</a>
+
+                            <a href="{{route('request_report.create')}}" class="btn btn-sm btn-outline-danger mt-5">
+                                Justfy your actions
+                            </a>
                         </h3>
                     </div>
                 </div>
