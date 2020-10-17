@@ -12,7 +12,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class SeederActivityTest extends TestCase
+class SeekerActivityTest extends TestCase
 {
     use RefreshDatabase;
 

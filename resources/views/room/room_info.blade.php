@@ -24,23 +24,23 @@
         : {{$room->total_rooms}}
     </h5>
 
+    @auth
     <h5 class="text-muted pb-2">
         <b><i class="fas fa-user-astronaut"></i> Property Owner</b>
         : @if(auth()->user()->role == 2)
-            <a href="{{route('owner.show',$room->owner->id)}}"
-               class="btn btn-outline-info btn-sm"><i
-                    class="fas fa-external-link-alt"></i> {{$room->user->name}}</a>
+        <a href="{{route('owner.show',$room->owner->id)}}" class="btn btn-outline-info btn-sm"><i
+                class="fas fa-external-link-alt"></i> {{$room->user->name}}</a>
         @else
-            {{$room->user->name}}
+        {{$room->user->name}}
         @endif
     </h5>
+    @endauth
 
     <h5 class="text-muted pb-2">
         <b><i class="fas fa-user-lock"></i> Room Facilities</b>
     </h5>
     <h6>@foreach($room->facilities as $facility)
-            <span
-                class="badge badge-pill badge-success"> {{$facility->name}}</span>
+        <span class="badge badge-pill badge-success"> {{$facility->name}}</span>
         @endforeach
     </h6>
 

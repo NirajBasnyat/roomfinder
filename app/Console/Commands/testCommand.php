@@ -38,11 +38,10 @@ class testCommand extends Command
      */
     public function handle()
     {
-        $this->line("This is test command");
+        /* $this->line("This is test command");
         sleep(random_int(3, 5));
         $this->line("Test command Executed");
-
+ */
         Log::info('working');
-
     }
 }

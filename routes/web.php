@@ -4,16 +4,22 @@
 // Room seeker's role id = 2
 
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
-})->name('/');
+})->name('/'); */
 
 Auth::routes(['verify' => true]);
 
 Route::view('/read_more', 'read_more')->name('read_more');
+
 Route::get('request_report/report/{reported_user_id}', 'RequestReportController@show_report_form')->name('report.user_form');
 Route::resource('request_report', 'RequestReportController');
-#------------------------------------------------------------------------------------------------------------------------#
+
+Route::get('/', 'FrontEndController@index')->name('/');
+Route::get('/category_room/{category_id}', 'FrontEndController@category_room')->name('category_room');
+Route::get('/category_room/room/{room}', 'FrontEndController@category_room_show')->name('category_room_show');
+Route::get('/search_room', 'FrontEndController@search_room')->name('search_room');
+#------------------------------------------------------------------------------------------------------------------------------#
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
 

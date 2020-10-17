@@ -92,6 +92,7 @@ class RoomController extends Controller
                 return $query->where('applicants.user_id', $user_id);
             })->select('applicants.id', 'status')->first();
 
+
         $rating = Rating::where('user_id', auth()->id())->where('room_id', $room_id)->first();
         if ($rating == null) {
             $rating = 0;

@@ -14,10 +14,16 @@ class SeekerRoomController extends Controller
 {
     public function index()
     {
+        $excluding_ids = DB::table('rooms')
+            ->join('applicants', 'rooms.id', '=', 'applicants.room_id')
+            ->where('status', 'hired')
+            ->orWhere('status', '')->pluck('applicants.room_id');
+
         $cities = City::all(['name', 'id']);
         $places = Place::all(['name', 'id']);
         $categories = Category::all();
         $rooms = Room::with('city')->with('place')->with('category')
+            ->whereNotIn('id', $excluding_ids->toArray())
             ->select(['id', 'title', 'price', 'city_id', 'place_id', 'category_id', 'created_at'])
             ->paginate(10);
         return view('room_seeker.all_room', compact('rooms', 'categories', 'cities', 'places'));
@@ -52,7 +58,12 @@ class SeekerRoomController extends Controller
              );
          }*/
 
-        $query = Room::with('city')->with('place')->with('category');
+        $excluding_ids = DB::table('rooms')
+            ->join('applicants', 'rooms.id', '=', 'applicants.room_id')
+            ->where('status', 'hired')
+            ->orWhere('status', '')->pluck('applicants.room_id');
+
+        $query = Room::with('city')->with('place')->with('category')->whereNotIn('id', $excluding_ids->toArray());
         if ($request->cityId != 0) {
             $query->where('city_id', $request->cityId);
         }
