@@ -3,10 +3,11 @@
 namespace Tests\Feature;
 
 use App\User;
+use App\Category;
 use Tests\TestCase;
+use App\Http\Helper\AppHelper;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Category;
 
 class AdminActivityTest extends TestCase
 {
@@ -47,7 +48,7 @@ class AdminActivityTest extends TestCase
     /** @test */
     public function admin_can_ban_users()
     {
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
 
         $admin = factory(User::class)->create([
             'name' => 'Admin',
@@ -69,14 +70,19 @@ class AdminActivityTest extends TestCase
             $owner->role = 3,
         ]);
 
-        $response->assertRedirect('/');
+        // $response->assertRedirect('/');
+        $response->assertSessionHas('success', $owner->name . ' ' . AppHelper::UserBanned);
+        
+        //owner should not be able to get to his/her profile
+        $this->actingAs($owner)->get('owner_profile')
+            ->assertStatus(404);
     }
 
     /** @test */
     public function admin_can_unban_users()
     {
 
-        $this->withoutExceptionHandling();
+       $this->withoutExceptionHandling();
 
         $admin = factory(User::class)->create([
             'name' => 'Admin',
@@ -103,10 +109,13 @@ class AdminActivityTest extends TestCase
             $user->role = 1,
         ]);
 
+        $response->assertSessionHas('success', $owner->name . ' ' . AppHelper::UserUnbanned);
         $response->assertStatus(302);
-    }
 
-    //room category can be created
+        //owner should  be able to get to his/her dashboard
+        $this->actingAs($owner)->get('/owner/dashboard')
+        ->assertStatus(302);
+    }
 
     /** @test */
     public function admin_can_create_room_category()
@@ -148,6 +157,5 @@ class AdminActivityTest extends TestCase
         $response = $this->actingAs($admin)->get('seeker/dashboard');
 
         $response->assertRedirect('/');
-
     }
 }
