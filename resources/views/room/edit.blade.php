@@ -52,8 +52,8 @@
                                                             <option value="{{$city->id}}"
                                                                     id="{{$city->id}}"
                                                                     @if($city->id == $room->city_id)
-                                                                        selected
-                                                                    @endif
+                                                                    selected
+                                                                @endif
                                                             >{{$city->name}}</option>
                                                         @endforeach
                                                     </select>
@@ -67,7 +67,7 @@
                                                         <option value="0" disabled selected>Select City First</option>
                                                     </select>
                                                     @foreach($cities as $city)
-                                                        <select class="places custom-select" name="place_id"
+                                                        <select class="places custom-select"
                                                                 id="{{'pid'.$city->id}}"
                                                                 style="display: none;">
                                                             <option value="0" disabled selected>Select place</option>
@@ -75,8 +75,8 @@
                                                                 <option value="{{$place->id}}"
                                                                         id="{{$place->id}}"
                                                                         @if($place->id == $room->place_id)
-                                                                             selected
-                                                                        @endif
+                                                                        selected
+                                                                    @endif
                                                                 >{{$place->name}}</option>
                                                             @endforeach
                                                         </select>
@@ -154,10 +154,10 @@
                                                                    name="facilities[]" type="checkbox"
                                                                    id="{{$facility->name}}" value="{{$facility->id}}"
                                                                    @foreach($room->facilities as $room_facility)
-                                                                       @if($facility->id == $room_facility->id)
-                                                                            checked
-                                                                       @endif
-                                                                   @endforeach
+                                                                   @if($facility->id == $room_facility->id)
+                                                                   checked
+                                                                @endif
+                                                                @endforeach
                                                             >
                                                             <label class="form-check-label"
                                                                    for="{{$facility->name}}">{{$facility->name}}</label>
@@ -189,9 +189,11 @@
 
 @section('js')
     <script>
-        window.onload = function () {
+
+        $(function () {
             selectCity(document.getElementById('city'));
-        };
+        });
+
         function selectCity(city) {
             //Not displaying places before selecting city
             places = document.getElementsByClassName('places');
@@ -202,10 +204,18 @@
             if (city) {
                 //(first/default) select is removed
                 document.getElementById('select_place').style.display = "none";
+
+                document.getElementsByName("place_id").forEach(function (element) {
+                    element.removeAttribute("name");
+                });
+
+                if (city.value == 0) {
+                    document.getElementById("select_place").style.display = "block";
+                }
+                //places according to city is displayed
+                document.getElementById('pid' + city.value).setAttribute("name", "place_id")
+                document.getElementById('pid' + city.value).style.display = "block";
             }
-            //places according to city is displayed
-            document.getElementById('pid' + city.value).setAttribute("name", "place_id")
-            document.getElementById('pid' + city.value).style.display = "block";
         }
     </script>
 

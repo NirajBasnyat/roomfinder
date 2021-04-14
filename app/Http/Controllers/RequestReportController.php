@@ -40,6 +40,7 @@ class RequestReportController extends Controller
                 'reported_user_id' => $request->reported_user_id
             ]);
 
+            //sends mail in mailtrap not
             if (\Notification::send(
                 User::where('admin', 1)->first(),
                 new RequestAndReportNotification(RequestReport::latest('id')->first())

@@ -150,7 +150,7 @@
                                                                     </option>
                                                                 </select>
                                                                 @foreach($cities as $city)
-                                                                <select class="places custom-select" name="place_id"
+                                                                <select class="places custom-select"
                                                                     id="{{'pid'.$city->id}}" style="display: none;">
                                                                     <option value="0" disabled selected>
                                                                         Select place
@@ -274,24 +274,32 @@
 <script>
     CKEDITOR.replace('article-ckeditor');
 
-        window.onload = function () {
-            selectCity(document.getElementById('city'));
-        }
+    $(function () {
+        selectCity(document.getElementById('city'));
+    });
 
-        function selectCity(city) {
-            //Not displaying places before selecting city
-            places = document.getElementsByClassName('places');
-            for (var i = 0; i < places.length; i++) {
-                places[i].style.display = "none";
-            }
-            //city is selected
-            if (city) {
-                //(first/default) select is removed
-                document.getElementById('select_place').style.display = "none";
+    function selectCity(city) {
+        //Not displaying places before selecting city
+        places = document.getElementsByClassName('places');
+        for (var i = 0; i < places.length; i++) {
+            places[i].style.display = "none";
+        }
+        //city is selected
+        if (city) {
+            //(first/default) select is removed
+            document.getElementById('select_place').style.display = "none";
+
+            document.getElementsByName("place_id").forEach(function (element) {
+                element.removeAttribute("name");
+            });
+
+            if (city.value == 0) {
+                document.getElementById("select_place").style.display = "block";
             }
             //places according to city is displayed
             document.getElementById('pid' + city.value).setAttribute("name", "place_id")
             document.getElementById('pid' + city.value).style.display = "block";
         }
+    }
 </script>
 @endsection
