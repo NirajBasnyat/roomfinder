@@ -19,6 +19,8 @@ Route::get('/', 'FrontEndController@index')->name('/');
 Route::get('/category_room/{category_id}', 'FrontEndController@category_room')->name('category_room');
 Route::get('/category_room/room/{room}', 'FrontEndController@category_room_show')->name('category_room_show');
 Route::get('/search_room', 'FrontEndController@search_room')->name('search_room');
+
+
 #------------------------------------------------------------------------------------------------------------------------------#
 
 Route::group(['middleware' => ['auth', 'verified']], function () {

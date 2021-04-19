@@ -39,8 +39,6 @@ class FrontEndController extends Controller
     //room based on the category
     public function category_room($category_id)
     {
-        // $category_rooms = Room::where('category_id', $category_id)->get();
-        // dd($category_rooms);
         return view('frontend.category_room', [
             'category_rooms' => Room::where('category_id', $category_id)->get()
         ]);
@@ -48,7 +46,6 @@ class FrontEndController extends Controller
 
     public function category_room_show(Room $room)
     {
-        // dd($room);
         return view('frontend.category_room_show', compact('room'));
     }
 

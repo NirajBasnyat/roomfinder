@@ -28,7 +28,12 @@ class SeekerController extends Controller
         $room_count = Room::all()->count();
         $user_count = User::all()->count();
         $owner_count = User::where('role', 1)->count();
-        return view('room_seeker.dashboard', compact('room_count', 'owner_count', 'user_count'));
+        $recommedated_rooms = Room::where([
+            ['place_id', auth()->user()->seeker->place_id],
+            ['city_id', auth()->user()->seeker->city_id],
+        ])->get();
+
+        return view('room_seeker.dashboard', compact('room_count', 'owner_count', 'user_count','recommedated_rooms'));
     }
 
     public function profile()

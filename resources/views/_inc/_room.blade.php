@@ -46,7 +46,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4>Highlighted Job </h4>
+                    <h4>Highlighted Rooms </h4>
                 </div>
                 <div class="card-body">
                     @foreach ($mostViewedRooms as $mostViewedRoom)

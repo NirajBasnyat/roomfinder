@@ -83,7 +83,7 @@ class RoomController extends Controller
 
         $seeker = Seeker::where('user_id', \auth()->user()->id)->first();
 
-        //to check if user has (already) applied to a job or not
+        //to check if user has (already) applied to a room or not
         $is_applied = DB::table('applicants')
             ->join('rooms', 'rooms.id', '=', 'applicants.room_id')
             ->when($room_id, function ($query) use ($room_id) {
@@ -194,11 +194,15 @@ class RoomController extends Controller
             }
         }
 
+        /*echo "<pre>";
+            print_r($matrix);
+        echo "</pre>";*/
+
+        //dd($matrix)// ->user le gareko rating
         // dd($matrix[Auth::user()->name]);
         $rooms = $this->getRecommendation($matrix, Auth::user()->name);
 
         //    dd($rooms);
-
 
         //filter rated rooms array into rooms
         $temp_array = array();
@@ -217,18 +221,21 @@ class RoomController extends Controller
 
     function getRecommendation($matrix, $authUser)
     {
-        $total = array();
-        $simSum = array();
+        $total = array(); //for upper part of formula
+        $simSum = array(); //for lower part of formula
         $ranks = array();
 
         foreach ($matrix as $otherUser => $val) {
 
+            //not checking similarity of user with itself
             if ($otherUser !== $authUser) {
-                $sim = $this->similarityDistance($matrix, $authUser, $otherUser);
+                    $sim = $this->similarityDistance($matrix, $authUser, $otherUser);
 
-                //formula part
+                //main formula part
                 foreach ($matrix[$otherUser] as $key => $value) {
+                    //making sure that only similar room are checked
                     if (!array_key_exists($key, $matrix[$authUser])) {
+                        //initalizing total value
                         if (!array_key_exists($key, $total)) {
                             $total[$key] = 0;
                         }
@@ -252,15 +259,16 @@ class RoomController extends Controller
             array_multisort($ranks, SORT_DESC);
         }
 
-        //    dd($ranks);
+        //  dd($ranks);
         return $ranks;
     }
 
-    function similarityDistance($matrix, $authUser, $otherUser)
+    function similarityDistance($matrix, $authUser, $otherUser) //checks similarity of auth user with other user
     {
         $similarity = array();
         $sum = 0;
 
+        //check that two users have similar items ie room rating [$key = room title]
         foreach ($matrix[$authUser] as $key => $value) {
             if (array_key_exists($key, $matrix[$otherUser])) {
                 $similarity[$key] = 1;
@@ -277,6 +285,7 @@ class RoomController extends Controller
             }
         }
 
+        //dd(1/ (1+sqrt($sum))*100);
         return 1 / (1 + sqrt($sum));
         // var_dump (1/(1+sqrt($sum)));
 
